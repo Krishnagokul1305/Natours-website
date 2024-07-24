@@ -2,6 +2,8 @@ const catchAsync = require('../utils/asyncHandler');
 const AppError = require('../utils/AppError');
 const userModel = require('../model/userModel');
 const handlerFactory = require('./handlerFactory');
+const multer = require('multer');
+const sharp = require('sharp');
 
 const filterOptions = (obj, ...includes) => {
   let filtered = {};
@@ -20,11 +22,42 @@ const getMe = (req, res, next) => {
   next();
 };
 
+const multerStorage = multer.memoryStorage();
+
+const multerFilter = (req, file, cb) => {
+  if (file.mimetype.split('/')[0] == 'image') {
+    cb(null, true);
+  } else {
+    cb(new AppError('Invalid file Please upload image', 401), false);
+  }
+};
+
+const uploadImg = multer({
+  storage: multerStorage,
+  fileFilter: multerFilter,
+});
+
+const resizeImg = (req, res, next) => {
+  if (!req.file) return next();
+
+  req.fileName = `user-${req.user.id}-${Date.now()}.jpeg`;
+  sharp(req.file.buffer)
+    .resize(500, 500)
+    .toFormat('jpeg')
+    .jpeg({ quality: 90 })
+    .toFile(`public/img/${req.fileName}`);
+  next();
+};
+
 const updateMe = catchAsync(async (req, res, next) => {
   if (req.body.password || req.body.confirmPassword) {
     return next(new AppError('This route is not for password updates', 400));
   }
-  let filtered = filterOptions(req.body, 'name', 'email');
+
+  let filtered = filterOptions(req.body, 'name', 'email', 'photo');
+  if (req.fileName) {
+    filtered.photo = req.fileName;
+  }
 
   const updated = await userModel.findByIdAndUpdate(req.user._id, filtered, {
     runValidators: true,
@@ -66,4 +99,6 @@ module.exports = {
   updateMe,
   deleteMe,
   getMe,
+  uploadImg,
+  resizeImg,
 };

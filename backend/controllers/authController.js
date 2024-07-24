@@ -65,6 +65,7 @@ const protect = catchAsync(async (req, res, next) => {
   ) {
     token = req.headers.authorization.split(' ')[1];
   }
+  console.log(req.cookie);
   if (!token) {
     return next(new AppError('Unauthorized access - please log in', 401));
   }
@@ -102,7 +103,7 @@ const protect = catchAsync(async (req, res, next) => {
 const restrictTo = (...roles) => {
   return (req, res, next) => {
     const { role } = req.user;
-    console.log(role, roles);
+    console.log(role, roles, roles.includes(role), req.user);
     if (!roles.includes(role)) {
       return next(
         new AppError('You are not authorized to perform this action', 403)
