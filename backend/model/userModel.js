@@ -30,7 +30,10 @@ const userSchema = mongoose.Schema({
       message: 'Passwords do not match',
     },
   },
-  photo: String,
+  photo: {
+    type: String,
+    default: 'default.jpg',
+  },
   updatedAt: Date,
   role: {
     type: String,
