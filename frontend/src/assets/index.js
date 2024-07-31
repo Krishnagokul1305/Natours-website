@@ -16,6 +16,7 @@ import menu from "../assets/app-img/app-icons/menu.png";
 import lArrow from "../assets/app-img/app-icons/left-arrow.png";
 import close from "../assets/app-img/app-icons/close.png";
 import loader from "../assets/app-img/app-icons/loader.gif";
+import defaultuser from "../assets/app-img/app-icons/default.png";
 
 import duration from "../assets/app-img/tour/duration.png";
 import location from "../assets/app-img/tour/location.png";
@@ -45,4 +46,5 @@ export {
   dQuotes,
   close,
   loader,
+  defaultuser
 };

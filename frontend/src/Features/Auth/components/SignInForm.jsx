@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   email as emailIcon,
   password as passwordIcon,
@@ -15,7 +15,7 @@ function SignInForm() {
   let [password, setPassword] = useState("");
   let [cPassword, setcPassword] = useState("");
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
   function submitForm(e) {
     e.preventDefault();
     const user = {
@@ -25,19 +25,24 @@ function SignInForm() {
       confirmPassword: cPassword,
     };
     dispatch(createUser(user));
+    navigate("/home");
     setEmail("");
     setName("");
     setPassword("");
     setcPassword("");
   }
 
-  const { isLoading} = useSelector((store) => store.user);
+  const { isLoading } = useSelector((store) => store.user);
 
   return (
-    <div className={`text-center md:px-10 px-4 py-10 glassy md:me-52  rounded-lg shadow-lg space-y-5  ${isLoading&&"opacity-80 blur-[1px]"}`} >
+    <div
+      className={`text-center md:px-10 px-4 py-10 glassy md:me-52  rounded-lg shadow-lg space-y-5  ${
+        isLoading && "opacity-80 blur-[1px]"
+      }`}
+    >
       <h1 className="text-5xl font-bold font-oswald text-ptext">Welcome</h1>
       <p className="font-bold text-lg text-gray-700">Sign-In</p>
-      <form action="" >
+      <form action="">
         <div className="flex gap-5 px-7 py-3 rounded-full transition-all duration-300 focus:outline-none focus:ring focus:ring-blue-200 glassy-input text-white my-7">
           <label htmlFor="">
             <img src={person} alt="" className="h-[24px]" />

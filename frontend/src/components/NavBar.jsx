@@ -2,12 +2,14 @@ import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom"; // If you're using react-router-dom for routing
 import { close, logoBlack, logoWhite, menu } from "../assets/index";
 import Button from "./Button";
+import User from "../Features/Auth/components/User";
+import { useSelector } from "react-redux";
 
 function NavBar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
-
+  const { isLogged } = useSelector((store) => store.user);
   const handleScroll = () => {
     if (window.scrollY > 100) {
       setIsScrolled(true);
@@ -71,20 +73,26 @@ function NavBar() {
         </li>
       </ul>
       <div className="hidden md:flex gap-4">
-        <Button
-          variant={`${isScrolled ? "secondaryUnfill" : "primaryUnfill"}`}
-          type="small"
-          to="/auth"
-        >
-          Login
-        </Button>
-        <Button
-          variant={`${isScrolled ? "secondary" : "primary"}`}
-          type="small"
-          to="/auth/sign-in"
-        >
-          Sign-In
-        </Button>
+        {!isLogged ? (
+          <>
+            <Button
+              variant={`${isScrolled ? "secondaryUnfill" : "primaryUnfill"}`}
+              type="small"
+              to="/auth"
+            >
+              Login
+            </Button>
+            <Button
+              variant={`${isScrolled ? "secondary" : "primary"}`}
+              type="small"
+              to="/auth/sign-in"
+            >
+              Sign-In
+            </Button>
+          </>
+        ) : (
+          <User isScrolled={isScrolled} />
+        )}
       </div>
       <div
         className="md:hidden flex items-center w-[50px] h-[50px] rounded-full bg-gray-200 absolute top-5 right-5"

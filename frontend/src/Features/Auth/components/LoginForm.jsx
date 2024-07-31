@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   email as emailIcon,
   password as passwordIcon,
@@ -12,7 +12,8 @@ function LoginForm() {
   let [password, setPassword] = useState("");
 
   const dispatch = useDispatch();
-
+const navigate=useNavigate()
+  
   function submitForm(e) {
     e.preventDefault();
     const user = {
@@ -20,6 +21,7 @@ function LoginForm() {
       password,
     };
     dispatch(loginUser(user));
+    navigate("/home")
     setEmail("");
     setPassword("");
   }
