@@ -17,7 +17,7 @@ function Button({ variant, onClick, children, type, to }) {
 
   let btnStyle = baseStyle;
 
-  const small = " px-5 py-3 text-sm";
+  const small = " px-3 py-2 text-sm";
   const big = " px-5 py-3 text-base";
   if (variant === "primary") btnStyle += primaryBtn;
   if (variant === "secondary") btnStyle += secondaryBtn;

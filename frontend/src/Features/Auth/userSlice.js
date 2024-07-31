@@ -20,13 +20,18 @@ const createUser = createAsyncThunk("user/signin", async function (user) {
 const loginUser = createAsyncThunk("user/login", async function (user) {
   const response = await login(user);
   localStorage.setItem("token", response.token);
-  console.log(response);
-  return response;
+  return response.userDetails;
 });
 
 const userSlice = createSlice({
   name: "user",
   initialState,
+  reducers: {
+    logout(state) {
+      state.isLogged = false;
+      state.user = { name: "", photo: "default.jpg" };
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(createUser.pending, (state) => {
@@ -58,6 +63,8 @@ const userSlice = createSlice({
       });
   },
 });
+
+export const { logout } = userSlice.actions;
 
 export { createUser, loginUser };
 
