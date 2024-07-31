@@ -28,8 +28,8 @@ async function createTours() {
 }
 async function deleteTours() {
   try {
-    // await Tour.deleteMany();
-    // await users.deleteMany();
+    await Tour.deleteMany();
+    await users.deleteMany();
     await reviews.deleteMany();
     console.log('datas deleted');
   } catch (err) {
