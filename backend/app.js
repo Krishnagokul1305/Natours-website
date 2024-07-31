@@ -10,6 +10,13 @@ const userRoute = require('./routes/userRoutes');
 const reviewRoute = require('./routes/reviewRoute');
 const AppErrors = require('./utils/AppError');
 const errorHandler = require('./controllers/errorController');
+const cors = require('cors');
+const bodyParser = require('body-parser');
+const path = require('path');
+
+app.use(cors());
+
+app.use(bodyParser.json());
 
 // middleware to parse the request body
 app.use(express.json());
@@ -19,18 +26,18 @@ if (process.env.NODE_ENV == 'development') {
 }
 
 // middleware to server static files
-app.use(express.static(`${__dirname}/public`));
+app.use('/api/v1/public', express.static(path.join(__dirname, 'public')));
 
 // middleware to setup security headers
 app.use(helmet());
 
 // middleware to limit of request per hour
-const limiter = rateLimiter({
-  limit: 100,
-  windowMs: 1000 * 60 * 60,
-  message: 'too many requests',
-});
-app.use(limiter);
+// const limiter = rateLimiter({
+//   limit: 1000,
+//   windowMs: 1000 * 60 * 60,
+//   message: 'too many requests',
+// });
+// app.use(limiter);
 
 // middleware to handle noSQL injection
 app.use(sanitizer());

@@ -13,17 +13,25 @@ const signToken = (id) => {
 };
 
 // Function to send token in response
-const sendTokenResponse = (res, id) => {
-  const token = signToken(id);
+const sendTokenResponse = (res, user) => {
+  const token = signToken(user.id);
   // Set JWT cookie with expiration
   res.cookie('jwt', token, {
     expires: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000), // 90 days in milliseconds
     httpOnly: true,
   });
+
+  const userDetails = {
+    name: user.name,
+    email: user.email,
+    photo: user.photo,
+  };
+
   // Respond with token in JSON format
   res.status(201).json({
     status: 'success',
     token,
+    userDetails,
   });
 };
 
@@ -37,7 +45,7 @@ const signUp = catchAsync(async (req, res, next) => {
     role: req.body.role,
   });
   // Send token in response upon successful signup
-  sendTokenResponse(res, newUser._id);
+  sendTokenResponse(res, newUser);
 });
 
 // Login function to authenticate and log in user
@@ -52,7 +60,7 @@ const login = catchAsync(async (req, res, next) => {
     return next(new AppError('Incorrect email or password', 401));
   }
   // Send token in response upon successful login
-  sendTokenResponse(res, user._id);
+  sendTokenResponse(res, user);
 });
 
 // Middleware to protect routes requiring authentication
@@ -180,7 +188,7 @@ const resetPassword = catchAsync(async (req, res, next) => {
   await user.save();
 
   // Send token in response upon successful password reset
-  sendTokenResponse(res, user._id);
+  sendTokenResponse(res, user);
 });
 
 // Function to update user's password
@@ -202,7 +210,7 @@ const updatePassword = catchAsync(async (req, res, next) => {
   await user.save();
 
   // Send token in response upon successful password update
-  sendTokenResponse(res, user._id);
+  sendTokenResponse(res, user);
 });
 
 module.exports = {

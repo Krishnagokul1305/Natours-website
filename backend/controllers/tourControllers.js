@@ -4,12 +4,22 @@ const AppError = require('../utils/AppError');
 const catchAsync = require('../utils/asyncHandler');
 const handlerFactory = require('./handlerFactory');
 const multer = require('multer');
+const { v4: uuidv4 } = require('uuid');
 
 // getting tours
 const getAllTours = handlerFactory.getAll(TourModel);
 
 // get tour by id
 const getTourById = handlerFactory.getOne(TourModel, 'reviews');
+
+// get top 3 tours with maximum ratings
+const getTopThreeTours = catchAsync(async (req, res, next) => {
+  const topTours = await TourModel.find().sort({ rating: -1 }).limit(3);
+  return res.status(200).json({
+    status: 'success',
+    data: topTours,
+  });
+});
 
 const multerStorage = multer.memoryStorage();
 
@@ -30,7 +40,7 @@ const resizeImg = (req, res, next) => {
   // console.log(req.files);
   if (!req.files.imageCover || !req.files.images) return next();
 
-  const imageCover = `tour-cover-${req.params.id}-${Date.now()}.jpeg`;
+  const imageCover = `tour-cover-${req.params.id}-${uuidv4()}.jpeg`;
   sharp(req.files.imageCover[0].buffer)
     .resize(2000, 1333)
     .toFormat('jpeg')
@@ -39,7 +49,7 @@ const resizeImg = (req, res, next) => {
   let images = [];
 
   req.files.images.forEach((img) => {
-    const imagesName = `tour-images-${req.params.id}-${Date.now()}.jpeg`;
+    const imagesName = `tour-images-${req.params.id}-${uuidv4()}.jpeg`;
 
     sharp(img.buffer)
       .resize(2000, 1333)
@@ -173,4 +183,5 @@ module.exports = {
   getTourNearMe,
   uploadImg,
   resizeImg,
+  getTopThreeTours,
 };

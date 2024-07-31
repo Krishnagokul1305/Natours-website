@@ -69,6 +69,13 @@ reviewSchema.post('save', function () {
   this.constructor.createReviewStats(this.tour);
 });
 
+reviewSchema.pre(/^find/, function () {
+  this.populate({
+    path: 'user',
+    select: 'name photo',
+  });
+});
+
 // Post findOneAndUpdate and findOneAndDelete middleware
 reviewSchema.post(/^findOneAnd/, async function (doc) {
   if (doc) {

@@ -10,6 +10,7 @@ const {
   getTourNearMe,
   uploadImg,
   resizeImg,
+  getTopThreeTours
 } = require('../controllers/tourControllers');
 const { protect, restrictTo } = require('../controllers/authController');
 
@@ -20,6 +21,9 @@ const reviewRoute = require('../routes/reviewRoute');
 TourRoute.route('/')
   .get(getAllTours)
   .post(protect, restrictTo('admin', 'lead-guide'), postTour);
+
+// popular tours route
+TourRoute.route('/top-3-tours').get(getTopThreeTours)
 
 // route for posting reviews for specific tour
 // we are using tourrouter.use because we are redirecting from that router
