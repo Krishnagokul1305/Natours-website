@@ -1,5 +1,10 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { login, signin, updateUserPassword } from "../../service/apiUser";
+import {
+  login,
+  signin,
+  updateUserPassword,
+  updateUser,
+} from "../../service/apiUser";
 import { defaultuser } from "../../assets";
 
 const initialState = {
@@ -38,7 +43,18 @@ const updatePassword = createAsyncThunk(
     const token = localStorage.getItem("token");
     const response = await updateUserPassword(password, newPassword, token);
     localStorage.setItem("token", response.token);
-    return password;
+    console.log(newPassword)
+    return newPassword;
+  }
+);
+
+const updateUserDetails = createAsyncThunk(
+  "user/updateUser",
+  async function (formData) {
+    const token = localStorage.getItem("token");
+    const response = await updateUser(formData, token);
+    console.log(response);
+    return response.data;
   }
 );
 
@@ -48,7 +64,8 @@ const userSlice = createSlice({
   reducers: {
     logout(state) {
       state.isLogged = false;
-      state.user = { name: "", photo: "default.jpg" };
+      state.error = "";
+      state.user = { name: "", photo: defaultuser, password: "", email: "" };
     },
   },
   extraReducers: (builder) => {
@@ -84,14 +101,37 @@ const userSlice = createSlice({
         state.isLoading = false;
         state.error = action.error.message;
       })
+      .addCase(updatePassword.pending, (state) => {
+        state.isLoading = true;
+        state.error = "";
+      })
       .addCase(updatePassword.fulfilled, (state, action) => {
+        console.log(action.payload)
+        state.isLoading = false;
         state.user.password = action.payload;
+      })
+      .addCase(updatePassword.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.error.message;
+      })
+      .addCase(updateUserDetails.pending, (state) => {
+        state.isLoading = true;
+        state.error = "";
+      })
+      .addCase(updateUserDetails.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.user.name = action.payload.name;
+        state.user.photo = `http://127.0.0.1:8000/api/v1/public/img/user/${action.payload.photo}`;
+      })
+      .addCase(updateUserDetails.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.error.message;
       });
   },
 });
 
 export const { logout } = userSlice.actions;
 
-export { createUser, loginUser, updatePassword };
+export { createUser, loginUser, updatePassword, updateUserDetails };
 
 export default userSlice.reducer;

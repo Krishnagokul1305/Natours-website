@@ -7,7 +7,6 @@ import {
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { createUser } from "../userSlice";
-import Popup from "../../../components/Popup";
 
 function SignInForm() {
   let [name, setName] = useState("");

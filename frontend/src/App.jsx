@@ -13,7 +13,6 @@ import LoginForm from "./Features/Auth/components/LoginForm";
 import SignInForm from "./Features/Auth/components/SignInForm";
 import AuthPage from "./Features/Auth/pages/AuthPage";
 
-import "./service/apiTours";
 import AppLayout from "./AppLayout";
 import UserPage from "./Features/Auth/pages/UserPage";
 import UserDetails from "./Features/Auth/components/UserDetails";
@@ -78,9 +77,9 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path:"*",
-    element:<PageNotFound />
-  }
+    path: "*",
+    element: <PageNotFound />,
+  },
 ]);
 
 function App() {

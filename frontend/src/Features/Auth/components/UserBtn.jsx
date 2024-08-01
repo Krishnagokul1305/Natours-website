@@ -15,19 +15,43 @@ function UserBtn({ isScrolled }) {
   }
 
   return (
-    <div className="flex gap-5 items-center ">
-      <Button variant={`${isScrolled ? "secondary" : "primary"}`} type="small" onClick={()=>navigate("/user")}>
-        <img src={defaultuser} alt="" className="h-[27px]" />
-        <h1>{name}</h1>
-      </Button>
+    <div>
+      <div className="md:flex gap-10 items-center flex-col md:flex-row md:gap-5 hidden">
+        <Button
+          variant={`${isScrolled ? "secondary" : "primary"}`}
+          type="small"
+          onClick={() => navigate("/user")}
+        >
+          <img src={defaultuser} alt="" className="h-[27px]" />
+          <h1>{name}</h1>
+        </Button>
 
-      <Button
-        variant={`${isScrolled ? "secondaryUnfill" : "primaryUnfill"}`}
-        type="small"
-        onClick={logoutfn}
-      >
-        Logout
-      </Button>
+        <Button
+          variant={`${isScrolled ? "secondaryUnfill" : "primaryUnfill"}`}
+          type="small"
+          onClick={logoutfn}
+        >
+          Logout
+        </Button>
+      </div>
+      <div className="flex gap-10 items-center flex-col md:flex-row md:gap-5 md:hidden">
+        <Button
+          variant={"secondary"}
+          type="small"
+          onClick={() => navigate("/user")}
+        >
+          <img src={defaultuser} alt="" className="h-[27px]" />
+          <h1>{name}</h1>
+        </Button>
+
+        <Button
+           variant={"secondary"}
+          type="small"
+          onClick={logoutfn}
+        >
+          Logout
+        </Button>
+      </div>
     </div>
   );
 }

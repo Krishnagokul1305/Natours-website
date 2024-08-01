@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 function ProcessCard({ icon, title, description,i }) {
   return (
     <div className={`w-[150px] space-y-5 font-poppins ${i%2!=0?"md:mt-28":""}`}>
