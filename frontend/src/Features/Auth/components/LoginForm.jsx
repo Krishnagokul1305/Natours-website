@@ -21,7 +21,7 @@ const navigate=useNavigate()
       password,
     };
     dispatch(loginUser(user));
-    navigate("/home")
+    navigate("/")
     setEmail("");
     setPassword("");
   }

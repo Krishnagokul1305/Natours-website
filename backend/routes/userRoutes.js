@@ -37,7 +37,7 @@ userRoute
 userRoute.route('/deleteMe').delete(deleteMe);
 userRoute.route('/updatePassword').patch(updatePassword);
 
-userRoute.use(restrictTo('admin'));
+// userRoute.use(restrictTo('admin'));
 userRoute.route('/').get(getAllUsers).post(postUser);
 userRoute.route('/:id').get(getUser).delete(deleteUser).patch(updateUser);
 
