@@ -9,13 +9,17 @@ import ToursOverview, {
   loader as allTourLoader,
 } from "./Features/Tour/pages/ToursOverview";
 import Tour, { loader as tourLoader } from "./Features/Tour/pages/Tour";
-import UserSettings from "./UserSettings";
 import LoginForm from "./Features/Auth/components/LoginForm";
 import SignInForm from "./Features/Auth/components/SignInForm";
 import AuthPage from "./Features/Auth/pages/AuthPage";
 
 import "./service/apiTours";
 import AppLayout from "./AppLayout";
+import UserPage from "./Features/Auth/pages/UserPage";
+import UserDetails from "./Features/Auth/components/UserDetails";
+import UserBookings from "./Features/Auth/components/UserBookings";
+import ProtectedRoute from "./Features/Auth/components/ProtectedRoute";
+import PageNotFound from "./pages/PageNotFound/PageNotFound";
 
 const router = createBrowserRouter([
   {
@@ -42,8 +46,16 @@ const router = createBrowserRouter([
       },
       {
         path: "/user",
-        element: <UserSettings />,
-        children: [],
+        element: (
+          <ProtectedRoute>
+            <UserPage />
+          </ProtectedRoute>
+        ),
+        children: [
+          { path: "", element: <Navigate to="settings" /> },
+          { path: "settings", element: <UserDetails /> },
+          { path: "bookings", element: <UserBookings /> },
+        ],
       },
       {
         path: "/auth",
@@ -65,6 +77,10 @@ const router = createBrowserRouter([
       },
     ],
   },
+  {
+    path:"*",
+    element:<PageNotFound />
+  }
 ]);
 
 function App() {

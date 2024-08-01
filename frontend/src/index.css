@@ -28,6 +28,18 @@
   background-size: cover;
 }
 
+.user-bg {
+  background-image: linear-gradient(
+      0deg,
+      rgba(31, 31, 31, 0.575) 0%,
+      rgba(0, 0, 0, 0.41) 100%
+    ),
+    url("./assets/app-img/user/userbg.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
 .login {
   background-image: url("./assets/app-img/login-bg.jpg");
   background-repeat: no-repeat;

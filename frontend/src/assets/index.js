@@ -25,6 +25,10 @@ import people from "../assets/app-img/tour/people.png";
 import flagWhite from "../assets/app-img/app-icons/flag.png";
 import dQuotes from "../assets/app-img/app-icons/double-quotes.png";
 
+import exit from "../assets/app-img/user/exit.png";
+import settings from "../assets/app-img/user/settings.png";
+import bookings from "../assets/app-img/user/booking.png";
+
 export {
   pin,
   user,
@@ -46,5 +50,8 @@ export {
   dQuotes,
   close,
   loader,
-  defaultuser
+  defaultuser,
+  exit,
+  bookings,
+  settings,
 };

@@ -67,6 +67,7 @@ const login = catchAsync(async (req, res, next) => {
 const protect = catchAsync(async (req, res, next) => {
   let token;
   // Check if authorization header contains a valid JWT
+  console.log(req.headers)
   if (
     req.headers.authorization &&
     req.headers.authorization.startsWith('Bearer')

@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom"; // If you're using react-router-dom for routing
 import { close, logoBlack, logoWhite, menu } from "../assets/index";
 import Button from "./Button";
-import User from "../Features/Auth/components/User";
+import Userbtn from "../Features/Auth/components/UserBtn";
 import { useSelector } from "react-redux";
 
 function NavBar() {
@@ -22,7 +22,7 @@ function NavBar() {
     const isHomePage = location.pathname === "/";
 
     if (isHomePage) {
-      setIsScrolled(window.scrollY > 100);
+      setIsScrolled(window.scrollY > 200);
 
       window.addEventListener("scroll", handleScroll);
     } else {
@@ -91,7 +91,7 @@ function NavBar() {
             </Button>
           </>
         ) : (
-          <User isScrolled={isScrolled} />
+          <Userbtn isScrolled={isScrolled} />
         )}
       </div>
       <div
