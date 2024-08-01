@@ -70,15 +70,12 @@ export async function updateUserPassword(password, newPassword, token) {
   }
 }
 
-export async function updateUser(token) {
+export async function updateUser(formData,token) {
   try {
-    const res = await fetch(`${BASE_URL}/updatePassword`, {
+    const res = await fetch(`${BASE_URL}/updateMe`, {
       method: "PATCH",
-      body: JSON.stringify({
-
-      }),
+      body:formData,
       headers: {
-        "Content-Type": "application/json",
         "Authorization": `Bearer ${token}`,
       },
     });
@@ -88,6 +85,7 @@ export async function updateUser(token) {
     }
 
     const data = await res.json();
+    console.log(res)
     return data;
   } catch (error) {
     console.error("Error updating password:", error);

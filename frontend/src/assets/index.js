@@ -15,7 +15,6 @@ import person from "../assets/app-img/auth/person.png";
 import menu from "../assets/app-img/app-icons/menu.png";
 import lArrow from "../assets/app-img/app-icons/left-arrow.png";
 import close from "../assets/app-img/app-icons/close.png";
-import loader from "../assets/app-img/app-icons/loader.gif";
 import defaultuser from "../assets/app-img/app-icons/default.png";
 
 import duration from "../assets/app-img/tour/duration.png";
@@ -28,6 +27,9 @@ import dQuotes from "../assets/app-img/app-icons/double-quotes.png";
 import exit from "../assets/app-img/user/exit.png";
 import settings from "../assets/app-img/user/settings.png";
 import bookings from "../assets/app-img/user/booking.png";
+
+import rightArrow from "../assets/app-img/user/right-arrow.png"
+import leftArrow from "../assets/app-img/user/left-arrow.png"
 
 export {
   pin,
@@ -49,9 +51,10 @@ export {
   flagWhite,
   dQuotes,
   close,
-  loader,
   defaultuser,
   exit,
   bookings,
   settings,
+  rightArrow,
+  leftArrow
 };

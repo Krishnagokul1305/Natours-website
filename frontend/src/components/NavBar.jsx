@@ -134,16 +134,22 @@ function NavBar() {
               Process
             </a>
           </li>
-          <li>
-            <Button variant="secondary" type="small" to="/auth">
-              Login
-            </Button>
-          </li>
-          <li>
-            <Button variant="secondary" type="small" to="/auth/sign-in">
-              Sign-In
-            </Button>
-          </li>
+          {!isLogged ? (
+            <>
+              <li>
+                <Button variant="secondary" type="small" to="/auth">
+                  Login
+                </Button>
+              </li>
+              <li>
+                <Button variant="secondary" type="small" to="/auth/sign-in">
+                  Sign-In
+                </Button>
+              </li>
+            </>
+          ) : (
+            <Userbtn isScrolled={isScrolled} />
+          )}
         </ul>
       </div>
     </nav>

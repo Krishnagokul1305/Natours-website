@@ -14,7 +14,10 @@ const signToken = (id) => {
 
 // Function to send token in response
 const sendTokenResponse = (res, user) => {
-  const token = signToken(user.id);
+  console.log(user);
+
+  const token = signToken(user._id);
+  console.log(token);
   // Set JWT cookie with expiration
   res.cookie('jwt', token, {
     expires: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000), // 90 days in milliseconds
@@ -44,6 +47,7 @@ const signUp = catchAsync(async (req, res, next) => {
     confirmPassword: req.body.confirmPassword,
     role: req.body.role,
   });
+
   // Send token in response upon successful signup
   sendTokenResponse(res, newUser);
 });
@@ -67,7 +71,7 @@ const login = catchAsync(async (req, res, next) => {
 const protect = catchAsync(async (req, res, next) => {
   let token;
   // Check if authorization header contains a valid JWT
-  console.log(req.headers)
+  console.log(req.headers);
   if (
     req.headers.authorization &&
     req.headers.authorization.startsWith('Bearer')
@@ -198,9 +202,11 @@ const updatePassword = catchAsync(async (req, res, next) => {
   if (!currentPassword || !newPassword) {
     return next(new AppError('Please provide current and new passwords', 400));
   }
+  console.log(currentPassword, newPassword);
 
   // Find user and validate current password
   const user = await userModel.findById(req.user.id);
+  console.log(user, await user.passwordConfirm(currentPassword, user.password));
   if (!user || !(await user.passwordConfirm(currentPassword, user.password))) {
     return next(new AppError('Invalid user or password', 401));
   }
