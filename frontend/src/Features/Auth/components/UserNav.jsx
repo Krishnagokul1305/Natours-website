@@ -1,6 +1,12 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { bookings, exit, leftArrow, logofullblack, settings } from "../../../assets/index";
+import {
+  bookings,
+  exit,
+  leftArrow,
+  logofullblack,
+  settings,
+} from "../../../assets/index";
 import { useDispatch } from "react-redux";
 import { logout } from "../userSlice";
 
@@ -14,10 +20,14 @@ function UserNav() {
 
   return (
     <>
-      <div className={`fixed lg:static top-0 left-0 h-full z-20 bg-white transition-transform duration-300 ${isOpen ? 'translate-x-0 lg:translate-x-0' : '-translate-x-full lg:translate-x-0'} w-[300px] shadow-lg py-5 px-2 flex flex-col gap-5`}>
-       
+      <div
+        className={`fixed lg:static top-0 left-0 h-full z-20 bg-white transition-transform duration-300 ${
+          isOpen
+            ? "translate-x-0 lg:translate-x-0"
+            : "-translate-x-full lg:translate-x-0"
+        } w-[300px] shadow-lg py-5 px-2 flex flex-col gap-5`}
+      >
         <Link to="/" onClick={toggleNav}>
-        
           <img
             src={logofullblack}
             alt="Logo"
@@ -53,9 +63,23 @@ function UserNav() {
           <h1>Logout</h1>
         </div>
       </div>
-      <div className={`fixed top-0 left-0 h-full w-full bg-black bg-opacity-50 transition-opacity duration-300 lg:hidden ${isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`} onClick={toggleNav}></div>
-      <div className="fixed top-5 left-5 bg-gray-200 p-2 rounded-full cursor-pointer z-30 lg:hidden" onClick={toggleNav}>
-        <img src={leftArrow} alt="Open" className={`transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`} />
+      <div
+        className={`fixed top-0 left-0 h-full w-full bg-black bg-opacity-50 transition-opacity duration-300 lg:hidden ${
+          isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
+        }`}
+        onClick={toggleNav}
+      ></div>
+      <div
+        className="fixed top-5 left-5 bg-gray-200 p-2 rounded-full cursor-pointer z-30 lg:hidden"
+        onClick={toggleNav}
+      >
+        <img
+          src={leftArrow}
+          alt="Open"
+          className={`transition-transform duration-300 ${
+            isOpen ? "rotate-180" : ""
+          }`}
+        />
       </div>
     </>
   );

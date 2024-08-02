@@ -9,7 +9,6 @@ import { getPopularTour } from "../../service/apiTours";
 
 function HomePage() {
   const popularTours = useLoaderData();
-  console.log(popularTours);
   return (
     <div>
       <NavBar />

@@ -6,12 +6,17 @@ import TourBooking from "../components/TourBooking";
 import { getTourById } from "../../../service/apiTours";
 import TourTimeLine from "../components/TourTimeLine";
 import { lArrow } from "../../../assets";
+import { motion } from "framer-motion";
+import { staggerContainer } from "../../../utils/motion";
 
 function Tour() {
   const tour = useLoaderData();
   const navigate = useNavigate();
   return (
-    <div className="font-poppins">
+    <motion.div
+      className="font-poppins"
+      
+    >
       <button
         className="absolute top-5 left-5 bg-white w-[50px] h-[50px] rounded-full"
         onClick={() => navigate(-1)}
@@ -46,7 +51,7 @@ function Tour() {
         startDates={tour.startDates}
         locations={tour.locations}
       />
-    </div>
+    </motion.div>
   );
 }
 

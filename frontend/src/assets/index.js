@@ -27,6 +27,7 @@ import dQuotes from "../assets/app-img/app-icons/double-quotes.png";
 import exit from "../assets/app-img/user/exit.png";
 import settings from "../assets/app-img/user/settings.png";
 import bookings from "../assets/app-img/user/booking.png";
+import loader from "../assets/app-img/user/userLoader.gif"
 
 import rightArrow from "../assets/app-img/user/right-arrow.png"
 import leftArrow from "../assets/app-img/user/left-arrow.png"
@@ -56,5 +57,6 @@ export {
   bookings,
   settings,
   rightArrow,
-  leftArrow
+  leftArrow,
+  loader
 };
