@@ -4,7 +4,7 @@ import Button from "../../../components/Button";
 import { logout } from "../userSlice";
 import { useNavigate } from "react-router-dom";
 
-function UserBtn({ isScrolled }) {
+function UserBtn({ isScrolled, onclick }) {
   const { name } = useSelector((store) => store.user.user) || "Default";
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -12,6 +12,7 @@ function UserBtn({ isScrolled }) {
   function logoutfn() {
     localStorage.removeItem("token");
     dispatch(logout());
+    onclick()
   }
 
   return (
@@ -20,7 +21,10 @@ function UserBtn({ isScrolled }) {
         <Button
           variant={`${isScrolled ? "secondary" : "primary"}`}
           type="small"
-          onClick={() => navigate("/user")}
+          onClick={() => {
+            navigate("/user");
+            onclick();
+          }}
         >
           <img src={defaultuser} alt="" className="h-[27px]" />
           <h1>{name}</h1>
@@ -44,11 +48,7 @@ function UserBtn({ isScrolled }) {
           <h1>{name}</h1>
         </Button>
 
-        <Button
-           variant={"secondary"}
-          type="small"
-          onClick={logoutfn}
-        >
+        <Button variant={"secondary"} type="small" onClick={logoutfn}>
           Logout
         </Button>
       </div>

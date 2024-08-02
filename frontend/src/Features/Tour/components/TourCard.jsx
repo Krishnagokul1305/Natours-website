@@ -1,14 +1,20 @@
 /* eslint-disable react/prop-types */
 import { useNavigate } from "react-router-dom";
-import { calendar, flag, pin, user } from  "../../../assets/index";
+import { calendar, flag, pin, user } from "../../../assets/index";
 import Button from "../../../components/Button";
 import { formatDate } from "../../../utils/helper";
+import { motion } from "framer-motion";
+import { textVariant } from "../../../utils/motion";
 
-function TourCard({ tour }) {
+function TourCard({ tour, i }) {
   const navigate = useNavigate();
 
   return (
-    <div className="shadow-lg hover:translate-y-[-10px] hover:shadow-xl transition-all max-w-[23rem]">
+    <motion.div
+      className="shadow-lg hover:translate-y-[-10px] hover:shadow-xl transition-all max-w-[23rem]"
+      variants={textVariant(0.5 * i)}
+      whileHover={{ translateY: -10, boxShadow: "0 10px 20px rgba(0, 0, 0, 0.1)" }}
+    >
       {/* card img with header */}
       <div className="relative">
         <div className="h-70 relative card-picture">
@@ -76,7 +82,7 @@ function TourCard({ tour }) {
           Details
         </Button>
       </div>
-    </div>
+    </motion.div>
   );
 }
 
