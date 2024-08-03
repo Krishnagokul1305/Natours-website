@@ -22,6 +22,7 @@ const {
   protect,
   restrictTo,
 } = require('../controllers/authController');
+const bookingsRoute = require('./BookingsRoute');
 
 const userRoute = express.Router();
 userRoute.route('/signup').post(signUp);
@@ -36,6 +37,9 @@ userRoute
   .patch(uploadImg.single('photo'), resizeImg, updateMe);
 userRoute.route('/deleteMe').delete(deleteMe);
 userRoute.route('/updatePassword').patch(updatePassword);
+
+// route to get the bookings for a particular user
+userRoute.use('/:userId/bookings', bookingsRoute);
 
 // userRoute.use(restrictTo('admin'));
 userRoute.route('/').get(getAllUsers).post(postUser);

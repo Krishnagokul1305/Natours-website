@@ -13,6 +13,7 @@ const errorHandler = require('./controllers/errorController');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const path = require('path');
+const bookingsRoute = require('./routes/BookingsRoute');
 
 app.use(cors());
 
@@ -50,6 +51,8 @@ app.use('/api/v1/tours', TourRoute);
 app.use('/api/v1/users', userRoute);
 
 app.use('/api/v1/reviews', reviewRoute);
+
+app.use('/api/v1/bookings', bookingsRoute);
 
 // app.use('/api/v1/tours/:tourId/reviews', reviewRoute);
 

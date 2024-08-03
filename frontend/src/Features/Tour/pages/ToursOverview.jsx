@@ -26,9 +26,4 @@ function ToursOverview() {
   );
 }
 
-export async function loader({ params }) {
-  const tours = await getAllTours();
-  return tours;
-}
-
 export default ToursOverview;

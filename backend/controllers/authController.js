@@ -28,6 +28,7 @@ const sendTokenResponse = (res, user) => {
     name: user.name,
     email: user.email,
     photo: user.photo,
+    id: user._id,
   };
 
   // Respond with token in JSON format

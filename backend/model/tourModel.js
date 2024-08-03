@@ -105,10 +105,12 @@ tourSchema.pre('save', function (next) {
 });
 
 tourSchema.pre(/^find/, function (next) {
-  this.populate({
-    path: 'guides',
-    select: '-password -createdAt -updatedAt -__v',
-  });
+  if (!this.options.skipPopulateGuides) {
+    this.populate({
+      path: 'guides',
+      select: '-password -createdAt -updatedAt -__v',
+    });
+  }
   next();
 });
 
