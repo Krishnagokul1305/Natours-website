@@ -81,6 +81,7 @@ function UserDetails() {
               type="text"
               className="border border-stext rounded-md p-2 focus:outline-none"
               value={user.password}
+              disabled
             />
           </div>
           <div className="flex flex-col gap-2">

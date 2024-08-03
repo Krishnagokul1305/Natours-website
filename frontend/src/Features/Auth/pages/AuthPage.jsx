@@ -15,6 +15,9 @@ function AuthPage() {
       >
         <img src={lArrow} alt="" className="w-[24px] m-auto" />
       </button>
+      <div className="flex items-center justify-center">
+        {error && <Popup message={error} status="error" />}
+      </div>
       <Outlet />
     </div>
   );

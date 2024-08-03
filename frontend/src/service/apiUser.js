@@ -11,13 +11,13 @@ export async function signin(newUser) {
     });
 
     if (!res.ok) {
-      throw new Error(`Error: ${res.status} ${res.statusText}`);
+      throw new Error(`Error signing in: ${res.statusText}`);
     }
 
     const data = await res.json();
     return data;
   } catch (error) {
-    console.error("Error signing in:", error);
+    console.error( error);
     throw error;
   }
 }
@@ -81,7 +81,7 @@ export async function updateUser(formData,token) {
     });
 
     if (!res.ok) {
-      throw new Error(`Error: ${res.status} ${res.statusText}`);
+      throw new Error(`${res.status} ${res.statusText}`);
     }
 
     const data = await res.json();

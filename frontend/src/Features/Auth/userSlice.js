@@ -10,6 +10,7 @@ import { defaultuser } from "../../assets";
 const initialState = {
   user: {
     name: "",
+    id:"",
     photo: defaultuser,
     email: "",
     password: "",
@@ -17,6 +18,7 @@ const initialState = {
   isLogged: false,
   isLoading: false,
   error: "",
+  success: false,
 };
 
 const createUser = createAsyncThunk("user/signin", async function (user) {
@@ -31,6 +33,7 @@ const loginUser = createAsyncThunk("user/login", async function (user) {
   const userDetails = {
     name: response.userDetails.name,
     photo: response.userDetails.photo,
+    id:response.userDetails.id,
     email: user.email,
     password: user.password,
   };
@@ -43,7 +46,6 @@ const updatePassword = createAsyncThunk(
     const token = localStorage.getItem("token");
     const response = await updateUserPassword(password, newPassword, token);
     localStorage.setItem("token", response.token);
-    console.log(newPassword)
     return newPassword;
   }
 );
@@ -53,7 +55,6 @@ const updateUserDetails = createAsyncThunk(
   async function (formData) {
     const token = localStorage.getItem("token");
     const response = await updateUser(formData, token);
-    console.log(response);
     return response.data;
   }
 );
@@ -65,6 +66,7 @@ const userSlice = createSlice({
     logout(state) {
       state.isLogged = false;
       state.error = "";
+      state.success = false;
       state.user = { name: "", photo: defaultuser, password: "", email: "" };
     },
   },
@@ -73,59 +75,72 @@ const userSlice = createSlice({
       .addCase(createUser.pending, (state) => {
         state.isLoading = true;
         state.error = "";
+        state.success = false;
       })
       .addCase(createUser.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isLogged = true;
+        state.success = true;
         state.user.name = action.payload.name;
         state.user.email = action.payload.email;
         state.user.password = action.payload.password;
+        state.user.id=action.payload.id
       })
       .addCase(createUser.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.error.message;
+        state.success = false;
       })
       .addCase(loginUser.pending, (state) => {
         state.isLoading = true;
         state.error = "";
+        state.success = false;
       })
       .addCase(loginUser.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isLogged = true;
+        state.success = true;
         state.user.name = action.payload.name;
         state.user.photo = `http://127.0.0.1:8000/api/v1/public/img/user/${action.payload.photo}`;
         state.user.email = action.payload.email;
         state.user.password = action.payload.password;
+        state.user.id=action.payload.id
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.error.message;
+        state.success = false;
       })
       .addCase(updatePassword.pending, (state) => {
         state.isLoading = true;
         state.error = "";
+        state.success = false;
       })
       .addCase(updatePassword.fulfilled, (state, action) => {
-        console.log(action.payload)
         state.isLoading = false;
         state.user.password = action.payload;
+        state.success = true;
       })
       .addCase(updatePassword.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.error.message;
+        state.success = false;
       })
       .addCase(updateUserDetails.pending, (state) => {
         state.isLoading = true;
         state.error = "";
+        state.success = false;
       })
       .addCase(updateUserDetails.fulfilled, (state, action) => {
         state.isLoading = false;
         state.user.name = action.payload.name;
         state.user.photo = `http://127.0.0.1:8000/api/v1/public/img/user/${action.payload.photo}`;
+        state.success = true;
       })
       .addCase(updateUserDetails.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.error.message;
+        state.success = false;
       });
   },
 });

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { close, logoBlack, logoWhite, menu } from "../assets/index";
+import {logoBlack, logoWhite } from "../assets/index";
 import Button from "./Button";
 import Userbtn from "../Features/Auth/components/UserBtn";
 import { useSelector } from "react-redux";
@@ -117,7 +117,24 @@ function NavBar() {
         className="md:hidden flex items-center w-[50px] h-[50px] rounded-full bg-gray-200 absolute top-5 right-5"
         onClick={() => setIsOpen(true)}
       >
-        <img src={menu} alt="Menu" className="h-6 w-6 m-auto" />
+        {/*  */}
+        <svg
+          width="27px"
+          height="27px"
+          viewBox="0 0 24 24"
+          className="m-auto"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M4 6H20M4 12H20M4 18H20"
+            stroke="#000000"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
+        {/*  */}
       </div>
 
       <div
@@ -129,7 +146,23 @@ function NavBar() {
           className="md:hidden flex items-center w-[50px] h-[50px] rounded-full bg-gray-200 absolute top-5 right-5"
           onClick={() => setIsOpen(false)}
         >
-          <img src={close} alt="Menu" className="h-4 w-4 m-auto" />
+          {/*  */}
+          <svg
+            width="27px"
+            className="m-auto"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M19 5L4.99998 19M5.00001 5L19 19"
+              stroke="#000000"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+          {/*  */}
         </div>
         <ul className="flex flex-col gap-16 items-center text-ptext font-bold text-xl tracking-widest">
           <li onClick={() => setIsOpen(false)}>

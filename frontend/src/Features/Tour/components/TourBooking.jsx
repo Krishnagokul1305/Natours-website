@@ -1,9 +1,25 @@
 import { useSelector } from "react-redux";
 import { logoWhite } from "../../../assets/index";
 import Button from "../../../components/Button";
+import BookingPopup from "./BookingPopup";
+import { useEffect, useState } from "react";
 
-function TourBooking() {
+function TourBooking({ img }) {
   const { isLogged } = useSelector((store) => store.user);
+  let [popupOpen, setPopupOpen] = useState(false);
+
+  useEffect(() => {
+    if (popupOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [popupOpen]);
+
   return (
     <section className="px-5 py-16 bg-gray-100">
       <div className="mx-auto  rounded-2xl  w-fit px-5 py-7  shadow-xl flex items-center overflow-hidden bg-white">
@@ -17,7 +33,7 @@ function TourBooking() {
 
         <div className="flex items-start md:items-center gap-5 md:gap-14 flex-col md:flex-row justify-between">
           <div className=" space-y-2 md:space-y-4">
-            {isLogged ? (
+            {true ? (
               <>
                 <h2 className="font-semibold text-ptext md:text-2xl">
                   What are you waiting for?
@@ -33,8 +49,12 @@ function TourBooking() {
             )}
           </div>
 
-          {isLogged ? (
-            <Button type="big" variant="secondary">
+          {true ? (
+            <Button
+              type="big"
+              variant="secondary"
+              onClick={() => setPopupOpen(true)}
+            >
               Book tour now!
             </Button>
           ) : (
@@ -44,6 +64,7 @@ function TourBooking() {
           )}
         </div>
       </div>
+      {popupOpen && <BookingPopup img={img} setOpen={setPopupOpen} />}
     </section>
   );
 }

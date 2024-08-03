@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { staggerContainer, textVariant } from "../../utils/motion";
 
 function HeroSection() {
+
   return (
     <motion.section
       className="h-screen flex items-center justify-center hero-bg flex-col text-white"
@@ -14,7 +15,7 @@ function HeroSection() {
       <motion.p
         className="font-oswald tracking-[.12rem] sm:tracking-[0.2rem] text-sm  sm:text-lg md:text-2xl lg:text-4xl"
         variants={textVariant(0.2)}
-      > 
+      >
         UNFORGETTABLE TRAVEL AWAITS THE
       </motion.p>
       <motion.h1
