@@ -18,8 +18,7 @@ const fetchBookings = createAsyncThunk(
 const createBooking = createAsyncThunk(
   "bookings/post",
   async function ({ tourId, userId }) {
-    const token=localStorage.getItem("token")
-    console.log(tourId,userId)
+    const token = localStorage.getItem("token");
     const response = await postBookings({ tourId, userId, token });
     return response;
   }
