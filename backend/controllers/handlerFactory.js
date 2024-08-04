@@ -1,7 +1,6 @@
 const catchAsync = require('../utils/asyncHandler');
 const AppError = require('../utils/AppError');
 const ApiFeatures = require('../utils/ApiFeatures');
-const reviewModel = require('../model/tourModel');
 const tourModel = require('../model/tourModel');
 const Email = require('../utils/email');
 // deleting documents handler
@@ -68,12 +67,9 @@ exports.getOne = (model, populateOpt) =>
 exports.getAll = (model) =>
   catchAsync(async (req, res) => {
     // for nested routes
-    console.log(req.params.userId);
     let query = {};
     if (req.params.tourId) query = { tour: req.params.tourId };
     if (req.params.userId) query = { ...query, user: req.params.userId };
-
-    console.log(query);
 
     const features = new ApiFeatures(model.find(query), req.query)
       .filter()

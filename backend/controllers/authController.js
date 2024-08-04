@@ -14,10 +14,7 @@ const signToken = (id) => {
 
 // Function to send token in response
 const sendTokenResponse = (res, user) => {
-  console.log(user);
-
   const token = signToken(user._id);
-  console.log(token);
   // Set JWT cookie with expiration
   res.cookie('jwt', token, {
     expires: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000), // 90 days in milliseconds
@@ -74,14 +71,12 @@ const login = catchAsync(async (req, res, next) => {
 const protect = catchAsync(async (req, res, next) => {
   let token;
   // Check if authorization header contains a valid JWT
-  console.log(req.headers);
   if (
     req.headers.authorization &&
     req.headers.authorization.startsWith('Bearer')
   ) {
     token = req.headers.authorization.split(' ')[1];
   }
-  console.log(req.cookie);
   if (!token) {
     return next(new AppError('Unauthorized access - please log in', 401));
   }
@@ -119,13 +114,11 @@ const protect = catchAsync(async (req, res, next) => {
 const restrictTo = (...roles) => {
   return (req, res, next) => {
     const { role } = req.user;
-    console.log(role, roles, roles.includes(role), req.user);
     if (!roles.includes(role)) {
       return next(
         new AppError('You are not authorized to perform this action', 403)
       );
     }
-    console.log(role);
     next();
   };
 };
@@ -205,11 +198,9 @@ const updatePassword = catchAsync(async (req, res, next) => {
   if (!currentPassword || !newPassword) {
     return next(new AppError('Please provide current and new passwords', 400));
   }
-  console.log(currentPassword, newPassword);
 
   // Find user and validate current password
   const user = await userModel.findById(req.user.id);
-  console.log(user, await user.passwordConfirm(currentPassword, user.password));
   if (!user || !(await user.passwordConfirm(currentPassword, user.password))) {
     return next(new AppError('Invalid user or password', 401));
   }
