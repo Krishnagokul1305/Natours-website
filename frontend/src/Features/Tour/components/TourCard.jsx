@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import { useNavigate } from "react-router-dom";
 import Button from "../../../components/Button";
 import { formatDate } from "../../../utils/helper";
@@ -11,7 +10,7 @@ function TourCard({ tour, i }) {
   return (
     <motion.div
       className="shadow-lg hover:translate-y-[-10px] hover:shadow-xl transition-all max-w-[23rem]"
-      variants={textVariant(0.5 * i)}
+      variants={textVariant(0.2 * i)}
       whileHover={{
         translateY: -10,
         boxShadow: "0 10px 20px rgba(0, 0, 0, 0.1)",

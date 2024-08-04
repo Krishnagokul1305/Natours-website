@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
-function Popup({ status = "loading...", message = "unauthorized" }) {
+function Popup({ message = "unauthorized" }) {
   const [isVisible, setIsVisible] = useState(true);
 
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsVisible(false); 
-    }, 3000); // 3000 milliseconds = 3 seconds
+    }, 3000);
 
-    return () => clearTimeout(timer); // Cleanup the timer on component unmount
+    return () => clearTimeout(timer); 
   }, []);
 
   if (!isVisible) {

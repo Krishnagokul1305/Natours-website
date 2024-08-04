@@ -10,7 +10,7 @@ export async function tourLoader({ params }) {
   return tour;
 }
 
-export async function allToursLoader({ params }) {
+export async function allToursLoader() {
   const tours = await getAllTours();
   return tours;
 }

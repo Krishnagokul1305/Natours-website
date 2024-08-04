@@ -1,5 +1,4 @@
 import { Outlet } from "react-router-dom";
-import image from "../../../assets/app-img/user/user.jpg";
 import Button from "../../../components/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../userSlice";
