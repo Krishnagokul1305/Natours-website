@@ -48,6 +48,9 @@ const signUp = catchAsync(async (req, res, next) => {
   const url = '';
   new Email({ name: req.body.name, url, email: req.body.email }).sendWelcome();
 
+  if (req.body.password != req.body.confirmPassword) {
+    return next(new AppError('password does not match confirmpassword'));
+  }
   // Send token in response upon successful signup
   sendTokenResponse(res, newUser);
 });
