@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { fadeIn, staggerContainer, textVariant } from "../../../utils/motion";
+import { TOUR_COVER, TOUR_IMAGES } from "../../../../config";
 
 function TourLander({ name, imageCover, summary, images }) {
   return (
@@ -12,7 +13,7 @@ function TourLander({ name, imageCover, summary, images }) {
             rgba(1, 1, 1, 0.548) 0%, 
             rgba(0, 0, 0, 0.201) 100%
           ),
-          url('http://127.0.0.1:8000/api/v1/public/img/toursCover/${imageCover}')
+          url('${TOUR_COVER}/${imageCover}')
         `,
       }}
       variants={staggerContainer(0.5, 0.5)}
@@ -43,7 +44,7 @@ function TourLander({ name, imageCover, summary, images }) {
           {images.map((img, i) => (
             <motion.img
               key={i}
-              src={`http://127.0.0.1:8000/api/v1/public/img/toursImages/${img}`}
+              src={`${TOUR_IMAGES}/${img}`}
               className="h-64"
               variants={fadeIn("right","spring",i*0.5,0.75)}
             />

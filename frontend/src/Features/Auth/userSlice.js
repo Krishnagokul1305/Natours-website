@@ -6,6 +6,7 @@ import {
   updateUser,
 } from "../../service/apiUser";
 import { defaultuser } from "../../assets";
+import { USER_IMG } from "../../../config";
 
 const initialState = {
   user: {
@@ -101,7 +102,7 @@ const userSlice = createSlice({
         state.isLogged = true;
         state.success = true;
         state.user.name = action.payload.name;
-        state.user.photo = `http://127.0.0.1:8000/api/v1/public/img/user/${action.payload.photo}`;
+        state.user.photo = `${USER_IMG}/${action.payload.photo}`;
         state.user.email = action.payload.email;
         state.user.password = action.payload.password;
         state.user.id=action.payload.id
@@ -134,7 +135,7 @@ const userSlice = createSlice({
       .addCase(updateUserDetails.fulfilled, (state, action) => {
         state.isLoading = false;
         state.user.name = action.payload.name;
-        state.user.photo = `http://127.0.0.1:8000/api/v1/public/img/user/${action.payload.photo}`;
+        state.user.photo = `${USER_IMG}/${action.payload.photo}`;
         state.success = true;
       })
       .addCase(updateUserDetails.rejected, (state, action) => {

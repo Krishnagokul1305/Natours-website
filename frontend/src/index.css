@@ -2,6 +2,31 @@
 @tailwind components;
 @tailwind utilities;
 
+::-webkit-scrollbar {
+  display: none;
+}
+
+::-webkit-scrollbar-track {
+  display: none;
+}
+
+::-webkit-scrollbar-thumb {
+  display: none;
+}
+
+::-webkit-scrollbar-thumb:horizontal {
+  border-radius: 1px;
+}
+
+.reviews::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+.reviews::-webkit-scrollbar-thumb {
+  display: none;
+}
+
 .hero-bg {
   background-image: url("./assets/app-img/bg.jpg");
   background-repeat: no-repeat;

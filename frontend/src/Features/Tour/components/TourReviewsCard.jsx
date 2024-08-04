@@ -1,4 +1,4 @@
-import { dQuotes } from "../../../assets/index";
+import { dQuotes, defaultuser } from "../../../assets/index";
 
 function TourReviewsCard({ review }) {
   console.log(review);
@@ -7,9 +7,9 @@ function TourReviewsCard({ review }) {
       <img src={dQuotes} alt="" className="h-[40px] ms-auto" />
       <div className="flex items-center justify-between mt-5">
         <div className="flex items-center space-x-3">
-          <div className="w-[50px] h-[50px] rounded-full bg-primary">
+          <div className="w-[40px] h-[40px] rounded-full bg-primary">
             {review.user.photo ? (
-              <img src={review.user.photo} alt="" />
+              <img src={defaultuser} alt="" />
             ) : (
               <svg
                 xmlns="http://www.w3.org/2000/svg"
