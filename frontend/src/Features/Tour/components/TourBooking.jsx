@@ -4,8 +4,9 @@ import Button from "../../../components/Button";
 import BookingPopup from "./BookingPopup";
 import { useEffect, useState } from "react";
 
-function TourBooking({ img }) {
+function TourBooking({ img, tourId }) {
   const { isLogged } = useSelector((store) => store.user);
+  const { isLoading } = useSelector((store) => store.bookings);
   let [popupOpen, setPopupOpen] = useState(false);
 
   useEffect(() => {
@@ -33,7 +34,7 @@ function TourBooking({ img }) {
 
         <div className="flex items-start md:items-center gap-5 md:gap-14 flex-col md:flex-row justify-between">
           <div className=" space-y-2 md:space-y-4">
-            {true ? (
+            {isLogged ? (
               <>
                 <h2 className="font-semibold text-ptext md:text-2xl">
                   What are you waiting for?
@@ -49,13 +50,13 @@ function TourBooking({ img }) {
             )}
           </div>
 
-          {true ? (
+          {isLogged ? (
             <Button
               type="big"
               variant="secondary"
               onClick={() => setPopupOpen(true)}
             >
-              Book tour now!
+              {isLoading ? "booking..." : "Book tour now!"}
             </Button>
           ) : (
             <Button type="big" variant="secondary" to="/auth/login">
@@ -64,7 +65,9 @@ function TourBooking({ img }) {
           )}
         </div>
       </div>
-      {popupOpen && <BookingPopup img={img} setOpen={setPopupOpen} />}
+      {popupOpen && (
+        <BookingPopup img={img} setOpen={setPopupOpen} tourId={tourId} />
+      )}
     </section>
   );
 }

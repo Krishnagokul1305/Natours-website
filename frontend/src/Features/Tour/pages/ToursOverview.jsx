@@ -1,5 +1,4 @@
 import { useLoaderData } from "react-router-dom";
-import { getAllTours } from "../../../service/apiTours";
 import TourCard from "../components/TourCard";
 import NavBar from "../../../components/NavBar";
 import { motion } from "framer-motion";

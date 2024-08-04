@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import { motion } from "framer-motion";
 import { fadeIn, staggerContainer, textVariant } from "../../../utils/motion";
 
@@ -31,7 +30,7 @@ function TourLander({ name, imageCover, summary, images }) {
         className="text-xs mb-2 text-gray-100 md:text-lg"
         variants={textVariant(0.3)}
       >
-        " {summary} "
+        &quot; {summary} &quot;
       </motion.p>
       <div className="mt-5 md:mt-10 space-y-10">
         <motion.h1

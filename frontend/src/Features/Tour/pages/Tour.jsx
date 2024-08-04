@@ -48,6 +48,7 @@ function Tour() {
         startDates={tour.startDates}
         locations={tour.locations}
         img={tour.imageCover}
+        tourId={tour.id}
       />
     </motion.div>
   );

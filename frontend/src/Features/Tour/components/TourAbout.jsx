@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
-import { fadeIn, staggerContainer, textVariant } from "../../../utils/motion";
+import { fadeIn, staggerContainer } from "../../../utils/motion";
 
-function TourAbout({ img, description, name, maxGroupSize, duration, place }) {
+function TourAbout({ img, description, name }) {
   return (
     <motion.div
       className="px-5 py-20 flex flex-wrap flex-col md:flex-row "

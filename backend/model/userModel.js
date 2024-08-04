@@ -20,16 +20,16 @@ const userSchema = mongoose.Schema({
     required: [true, 'Please provide a password'],
     minlength: 8,
   },
-  // confirmPassword: {
-  //   type: String,
-  //   required: true,
-  //   validate: {
-  //     validator: function (el) {
-  //       return this.password === el;
-  //     },
-  //     message: 'Passwords do not match',
-  //   },
-  // },
+  confirmPassword: {
+    type: String,
+    required: true,
+    validate: {
+      validator: function (el) {
+        return this.password === el;
+      },
+      message: 'Passwords do not match',
+    },
+  },
   photo: {
     type: String,
     default: 'default.jpg',

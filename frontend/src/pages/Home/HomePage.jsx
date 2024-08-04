@@ -1,4 +1,4 @@
-import { useLoaderData, useRouteError } from "react-router-dom";
+import { useLoaderData } from "react-router-dom";
 import Footer from "../../components/Footer";
 import HeroSection from "./HeroSection";
 import NavBar from "../../components/NavBar";

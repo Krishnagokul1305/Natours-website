@@ -1,7 +1,5 @@
-/* eslint-disable react/prop-types */
-
 import { motion } from "framer-motion";
-import { staggerContainer, textVariant } from "../../utils/motion";
+import { textVariant } from "../../utils/motion";
 
 function ProcessCard({ icon, title, description,i }) {
   return (

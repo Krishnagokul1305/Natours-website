@@ -2,7 +2,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../userSlice";
-import Popup from "../../../components/Popup";
 
 function LoginForm() {
   let [email, setEmail] = useState("");
@@ -11,13 +10,13 @@ function LoginForm() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { isLoading, error ,success} = useSelector((store) => store.user);
+  const { isLoading, success } = useSelector((store) => store.user);
 
   function submitForm(e) {
     e.preventDefault();
     const user = {
       email,
-      password, 
+      password,
     };
     dispatch(loginUser(user));
     setEmail("");
@@ -29,7 +28,6 @@ function LoginForm() {
       navigate("/");
     }
   }, [success, navigate]);
-
 
   return (
     <div
@@ -48,7 +46,7 @@ function LoginForm() {
               viewBox="0 -2.5 20 20"
               version="1.1"
               xmlns="http://www.w3.org/2000/svg"
-              xmlns:xlink="http://www.w3.org/1999/xlink"
+              xmlnsXlink="http://www.w3.org/1999/xlink"
             >
               <g
                 id="Page-1"
@@ -129,7 +127,7 @@ function LoginForm() {
         </button>
       </form>
       <p>
-        Don't have an account ?
+        Don&#39;t have an account ?
         <Link className="font-bold text-blue-900 underline" to="/auth/sign-in">
           {" "}
           SignIn
