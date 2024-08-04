@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon server.js",
-    "debug": "ndb server.js"
+    "debug": "ndb server.js",
+    "build": "node build"
   },
   "author": "",
   "license": "ISC",
