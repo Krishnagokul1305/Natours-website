@@ -3,7 +3,7 @@ const catchAsync = require('../utils/asyncHandler');
 const jwt = require('jsonwebtoken');
 const AppError = require('../utils/AppError');
 const crypto = require('crypto');
-const sendEmail = require('../utils/email');
+const Email = require('../utils/email');
 
 // Function to sign JWT token
 const signToken = (id) => {
@@ -48,6 +48,8 @@ const signUp = catchAsync(async (req, res, next) => {
     confirmPassword: req.body.confirmPassword,
     role: req.body.role,
   });
+  const url = '';
+  new Email({ name: req.body.name, url, email: req.body.email }).sendWelcome();
 
   // Send token in response upon successful signup
   sendTokenResponse(res, newUser);
@@ -153,11 +155,11 @@ const forgotPassword = catchAsync(async (req, res, next) => {
   )}/api/v1/users/resetPassword/${token}`;
   const message = `Forgot your password? Submit your PATCH request to: ${resetUrl}`;
 
-  await sendEmail({
-    email,
-    subject: 'Your password reset token (valid for 10 minutes)',
-    message,
-  });
+  // await sendEmail({
+  //   email,
+  //   subject: 'Your password reset token (valid for 10 minutes)',
+  //   message,
+  // });
 
   // Respond with status indicating email sent
   res.status(200).json({
