@@ -9,7 +9,7 @@ const {
   checkUserTour,
 } = require('../controllers/reviewController');
 
-// reviewRoute.use(protect);
+reviewRoute.use(protect);
 
 reviewRoute
   .route('/')
