@@ -5,9 +5,10 @@ import { useState } from "react";
 function UserDetails() {
   const user = useSelector((store) => store.user.user);
 
-  let [newPassword, setnewPassword] = useState("");
-  let [file, setFile] = useState("");
-  let [name, setName] = useState(user.name);
+  const [newPassword, setnewPassword] = useState("");
+  const [file, setFile] = useState(null);
+  const [previewUrl, setPreviewUrl] = useState(user.photo);
+  const [name, setName] = useState(user.name);
 
   const dispatch = useDispatch();
 
@@ -19,9 +20,17 @@ function UserDetails() {
     const formData = new FormData();
     if (file) formData.append("photo", file);
     formData.append("name", name);
-    console.log(formData.get("name"), formData.get("photo"));
     dispatch(updateUserDetails(formData));
   }
+
+  function handleFileChange(e) {
+    const selectedFile = e.target.files[0];
+    if (selectedFile) {
+      setFile(selectedFile);
+      setPreviewUrl(URL.createObjectURL(selectedFile));
+    }
+  }
+
   return (
     <div className="px-10 py-5 space-y-5 bg-white h-full w-[95%] m-auto rounded-md">
       <h1 className="font-extrabold text-ptext">Your Account Settings</h1>
@@ -40,16 +49,16 @@ function UserDetails() {
             <label htmlFor="email">Email</label>
             <input
               type="email"
-              className="border border-stext rounded-md p-2  focus:outline-none"
+              className="border border-stext rounded-md p-2 focus:outline-none"
               defaultValue={user.email}
               disabled
             />
           </div>
         </div>
         <div className="flex items-center gap-5">
-          <div className="h-[100px] w-[100px] bg-white  rounded-full overflow-hidden">
+          <div className="h-[100px] w-[100px] bg-white rounded-full overflow-hidden">
             <img
-              src={user.photo}
+              src={previewUrl}
               alt="Avatar"
               className="h-full w-full object-cover"
             />
@@ -57,10 +66,10 @@ function UserDetails() {
           <div className="relative inline-block">
             <input
               type="file"
-              onChange={(e) => setFile(e.target.files[0])}
+              onChange={handleFileChange}
               className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
             />
-            <button className="bg-primary text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none cursor-pointer ">
+            <button className="bg-primary text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none cursor-pointer">
               Change Avatar
             </button>
           </div>
@@ -76,7 +85,7 @@ function UserDetails() {
         <h1 className="font-extrabold text-ptext">Change password</h1>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-14 ">
           <div className="flex flex-col gap-2">
-            <label htmlFor="name">Password</label>
+            <label htmlFor="password">Password</label>
             <input
               type="text"
               className="border border-stext rounded-md p-2 focus:outline-none"
@@ -85,10 +94,10 @@ function UserDetails() {
             />
           </div>
           <div className="flex flex-col gap-2">
-            <label htmlFor="email">New Password</label>
+            <label htmlFor="newPassword">New Password</label>
             <input
               type="password"
-              className="border border-stext rounded-md p-2  focus:outline-none"
+              className="border border-stext rounded-md p-2 focus:outline-none"
               value={newPassword}
               onChange={(e) => setnewPassword(e.target.value)}
               placeholder="new password"

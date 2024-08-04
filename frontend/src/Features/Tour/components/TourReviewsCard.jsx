@@ -1,7 +1,6 @@
 import { dQuotes, defaultuser } from "../../../assets/index";
 
 function TourReviewsCard({ review }) {
-  console.log(review);
   return (
     <div className="min-w-[300px] bg-gray-100 h-[300px] px-10 py-5 space-y-5 rounded-md">
       <img src={dQuotes} alt="" className="h-[40px] ms-auto" />
