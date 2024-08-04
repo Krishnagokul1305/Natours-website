@@ -1,8 +1,9 @@
 const catchAsync = require('../utils/asyncHandler');
 const AppError = require('../utils/AppError');
 const ApiFeatures = require('../utils/ApiFeatures');
-const reviewModel = require('../model/reviewModel');
-
+const reviewModel = require('../model/tourModel');
+const tourModel = require('../model/tourModel');
+const Email = require('../utils/email');
 // deleting documents handler
 exports.deleteOne = (model) =>
   catchAsync(async (req, res) => {
@@ -31,9 +32,16 @@ exports.updateOne = (model) =>
   });
 
 // post handler function
-exports.createOne = (model) =>
+exports.createOne = (model, isBooking) =>
   catchAsync(async (req, res) => {
     const doc = await model.create(req.body);
+    if (isBooking) {
+      const tour = await tourModel.findById(req.body.tour);
+      new Email(
+        { name: req.user.name, email: req.user.email },
+        ''
+      ).sendBookingConfirmation(tour);
+    }
     res.status(201).json({
       status: 'success',
       data: doc,
