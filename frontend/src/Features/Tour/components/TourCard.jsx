@@ -3,6 +3,7 @@ import Button from "../../../components/Button";
 import { formatDate } from "../../../utils/helper";
 import { motion } from "framer-motion";
 import { textVariant } from "../../../utils/motion";
+import { TOUR_COVER } from "../../../../config";
 
 function TourCard({ tour, i }) {
   const navigate = useNavigate();
@@ -20,7 +21,7 @@ function TourCard({ tour, i }) {
       <div className="relative">
         <div className="h-70 relative card-picture">
           <img
-            src={`http://127.0.0.1:8000/api/v1/public/img/toursCover/${tour.imageCover}`}
+            src={`${TOUR_COVER}/${tour.imageCover}`}
             alt="Tour 1"
             className="card__picture-img object-cover h-100 "
           />

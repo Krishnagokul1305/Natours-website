@@ -1,4 +1,6 @@
-const BASE_URL = "http://127.0.0.1:8000/api/v1";
+import { API_BASE_URL } from "../../config";
+
+const BASE_URL = API_BASE_URL;
 
 // http://127.0.0.1:8000/api/v1/users/66ab984951fd7b306076efb9/bookings
 async function getUserBookings({ id: userId, token }) {

@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { fadeIn, staggerContainer } from "../../../utils/motion";
+import { TOUR_COVER } from "../../../../config";
 
 function TourAbout({ img, description, name }) {
   return (
@@ -20,7 +21,7 @@ function TourAbout({ img, description, name }) {
       </motion.div>
       <motion.div className="mt-10 md:w-1/2"  variants={fadeIn("left","spring",0.5,0.75)}>
         <img
-          src={`http://127.0.0.1:8000/api/v1/public/img/toursCover/${img}`}
+          src={`${TOUR_COVER}/${img}`}
           alt=""
           className="h-auto w-[90%] object-contain m-auto"
         />
