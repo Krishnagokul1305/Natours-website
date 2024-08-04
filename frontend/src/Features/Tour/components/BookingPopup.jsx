@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import Button from "../../../components/Button";
 import { createBooking } from "../tourSlice";
+import { TOUR_COVER } from "../../../../config";
 
 function BookingPopup({ img, setOpen, tourId }) {
   const { id: userId } = useSelector((store) => store.user.user);
@@ -20,7 +21,7 @@ function BookingPopup({ img, setOpen, tourId }) {
           X
         </div>
         <img
-          src={`http://127.0.0.1:8000/api/v1/public/img/toursCover/${img}`}
+          src={`${TOUR_COVER}/${img}`}
           alt=""
           className="h-[40vh] w-full basis-[50%]"
         />

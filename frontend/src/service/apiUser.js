@@ -4,6 +4,12 @@ const BASE_URL = `${API_BASE_URL}/users`;
 
 export async function signin(newUser) {
   try {
+    if (newUser.password != newUser.confirmPassword) {
+      throw new Error(`password does not match`);
+    }
+    if (newUser.password.length < 8) {
+      throw new Error(`password length less than 8`);
+    }
     const res = await fetch(`${BASE_URL}/signup`, {
       method: "POST",
       body: JSON.stringify(newUser),
@@ -19,7 +25,7 @@ export async function signin(newUser) {
     const data = await res.json();
     return data;
   } catch (error) {
-    console.error( error);
+    console.error(error);
     throw error;
   }
 }
@@ -35,7 +41,7 @@ export async function login(user) {
     });
 
     if (!res.ok) {
-      throw new Error(`Error: ${res.status} ${res.statusText}`);
+      throw new Error(`Incorrect email or password`);
     }
 
     const data = await res.json();
@@ -56,7 +62,7 @@ export async function updateUserPassword(password, newPassword, token) {
       }),
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
       },
     });
 
@@ -72,13 +78,13 @@ export async function updateUserPassword(password, newPassword, token) {
   }
 }
 
-export async function updateUser(formData,token) {
+export async function updateUser(formData, token) {
   try {
     const res = await fetch(`${BASE_URL}/updateMe`, {
       method: "PATCH",
-      body:formData,
+      body: formData,
       headers: {
-        "Authorization": `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
       },
     });
 
@@ -87,7 +93,7 @@ export async function updateUser(formData,token) {
     }
 
     const data = await res.json();
-    console.log(res)
+    console.log(res);
     return data;
   } catch (error) {
     console.error("Error updating password:", error);

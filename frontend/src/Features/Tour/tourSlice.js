@@ -5,6 +5,7 @@ const initialState = {
   bookings: [],
   isLoading: false,
   error: "",
+  success:false
 };
 
 const fetchBookings = createAsyncThunk(
@@ -44,13 +45,16 @@ const bookingsSlice = createSlice({
       .addCase(createBooking.pending, (state) => {
         state.isLoading = true;
         state.error = "";
+        state.success=false
       })
       .addCase(createBooking.fulfilled, (state, action) => {
         state.isLoading = false;
+        state.success=true
         state.bookings.push(action.payload);
       })
       .addCase(createBooking.rejected, (state, action) => {
         state.isLoading = false;
+        state.success=false
         state.error = action.error.message;
       });
   },

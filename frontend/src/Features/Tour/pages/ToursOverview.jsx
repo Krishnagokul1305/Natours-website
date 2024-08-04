@@ -6,7 +6,7 @@ import { staggerContainer } from "../../../utils/motion";
 
 function ToursOverview() {
   const tours = useLoaderData();
-  console.log(tours);
+
   return (
     <>
       <NavBar />
@@ -14,7 +14,7 @@ function ToursOverview() {
         className="flex justify-center items-center gap-16 my-10 flex-wrap mt-28"
         variants={staggerContainer(0.5, 0.5)}
         initial="hidden"
-        whileInView={"show"}
+        animate="show"
         viewport={{ once: true, amount: 0.25 }}
       >
         {tours.map((tour, i) => (

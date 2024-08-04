@@ -81,6 +81,14 @@
   border: 1px solid rgba(253, 250, 250, 0.3);
 }
 
+.success {
+  background: rgba(9, 210, 46, 0.782);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(253, 250, 250, 0.3);
+}
+
 .gradient-bg {
   background: linear-gradient(
     0deg,

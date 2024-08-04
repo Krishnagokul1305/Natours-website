@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchBookings } from "../../Tour/tourSlice";
 import UserLoader from "./UserLoader";
+import { USER_IMG } from "../../../../config";
 
 function UserBookings() {
   const navigate = useNavigate();
@@ -13,11 +14,11 @@ function UserBookings() {
   const tourBookings = bookings || [];
   const dispatch = useDispatch();
 
+
   useEffect(() => {
     const token = localStorage.getItem("token");
     dispatch(fetchBookings({ id, token }));
-
-  }, [id,dispatch]);
+  }, [id, dispatch]);
 
   if (isLoading) return <UserLoader />;
   return (
@@ -41,7 +42,7 @@ function UserBookings() {
                 <td className="py-2 px-4 border-b">
                   <div className="flex items-center gap-2">
                     <img
-                      src={`http://127.0.0.1:8000/api/v1/public/img/toursCover/${booking.tour.imageCover}`}
+                      src={`${USER_IMG}/${booking.tour.imageCover}`}
                       className="h-[24px] rounded-md"
                       alt=""
                     />{" "}

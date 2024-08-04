@@ -30,6 +30,7 @@ const createUser = createAsyncThunk("user/signin", async function (user) {
 
 const loginUser = createAsyncThunk("user/login", async function (user) {
   const response = await login(user);
+
   localStorage.setItem("token", response.token);
   const userDetails = {
     name: response.userDetails.name,

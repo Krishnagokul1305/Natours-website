@@ -9,7 +9,7 @@ function HeroSection() {
       className="h-screen flex items-center justify-center hero-bg flex-col text-white"
       variants={staggerContainer(0.5, 0.5)}
       initial="hidden"
-      whileInView={"show"}
+      whileInView="show"
       viewport={{ once: true, amount: 0.25 }}
     >
       <motion.p

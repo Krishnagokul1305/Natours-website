@@ -3,12 +3,12 @@ import { logoWhite } from "../../../assets/index";
 import Button from "../../../components/Button";
 import BookingPopup from "./BookingPopup";
 import { useEffect, useState } from "react";
+import Popup from "../../../components/Popup";
 
 function TourBooking({ img, tourId }) {
   const { isLogged } = useSelector((store) => store.user);
-  const { isLoading } = useSelector((store) => store.bookings);
+  const { isLoading, success } = useSelector((store) => store.bookings);
   let [popupOpen, setPopupOpen] = useState(false);
-
   useEffect(() => {
     if (popupOpen) {
       document.body.style.overflow = "hidden";
@@ -23,6 +23,7 @@ function TourBooking({ img, tourId }) {
 
   return (
     <section className="px-5 py-16 bg-gray-100">
+      {success && <Popup message="booking success" status="success"/>}
       <div className="mx-auto  rounded-2xl  w-fit px-5 py-7  shadow-xl flex items-center overflow-hidden bg-white">
         <div className="bg-primary  rounded-full md:translate-x-[-55%] translate-x-[-80%] w-[150px] h-[150px] flex items-center justify-center shadow-lg">
           <img

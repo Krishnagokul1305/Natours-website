@@ -10,7 +10,6 @@ import defaultuser from "../assets/app-img/app-icons/default.png";
 import flagWhite from "../assets/app-img/app-icons/flag.png";
 import dQuotes from "../assets/app-img/app-icons/double-quotes.png";
 
-
 import loader from "../assets/app-img/user/userLoader.gif"
 
 export {
@@ -22,5 +21,5 @@ export {
   flagWhite,
   dQuotes,
   defaultuser,
-  loader
+  loader,
 };
