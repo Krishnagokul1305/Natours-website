@@ -1,0 +1,15 @@
+{
+  "name": "naturous-app",
+  "version": "1.0.0",
+  "description": "NATOURS is a full-stack application built with the MERN stack (MongoDB, Express.js, React.js, Node.js). It features a comprehensive tour booking platform with functionalities for authentication, user management, tour management, and review systems.",
+  "main": "index.js",
+  "scripts": {
+    "install-server": "cd backend  && npm install",
+    "install-client": "cd Frontend && npm install",
+    "build-client": "cd Frontend && npm run build ",
+    "start-server": "cd backend && node server.js",
+    "start-client": "cd Frontend && npm run dev"
+  },
+  "author": "",
+  "license": "ISC"
+}
