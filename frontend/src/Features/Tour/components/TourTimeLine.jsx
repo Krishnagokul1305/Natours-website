@@ -15,7 +15,7 @@ function TourTimeLine({ locations, startLocation }) {
       <VerticalTimeline>
         {locationsArr.map((location, i) => (
           <VerticalTimelineElement
-            key={location.id}
+            key={i}
             className="vertical-timeline-element--work"
             contentStyle={{
               background: "rgb(255,255,255)",

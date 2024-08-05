@@ -4,7 +4,7 @@ import Button from "../../../components/Button";
 import { logout } from "../userSlice";
 import { useNavigate } from "react-router-dom";
 
-function UserBtn({ isScrolled }) {
+function UserBtn({ isScrolled ,onclick}) {
   const { name } = useSelector((store) => store.user.user) || "Default";
   const dispatch = useDispatch();
   const navigate = useNavigate();

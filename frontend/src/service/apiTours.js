@@ -26,7 +26,6 @@ async function getTourById(id) {
     }
 
     const { data: tour } = await res.json();
-    console.log(tour);
     return tour;
   } catch (err) {
     console.error(err);

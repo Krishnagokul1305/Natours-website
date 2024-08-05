@@ -7,7 +7,6 @@ import UserLoader from "./UserLoader";
 function UserMain() {
   const user = useSelector((store) => store.user);
   const dispatch = useDispatch();
-  console.log(user);
   return (
     <div className="lg:basis-[80%] bg-gray-50 overflow-y-scroll basis-[100%]">
       <header className="h-[180px] bg-gray-400 relative user-bg">
