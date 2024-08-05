@@ -18,8 +18,8 @@ function TourCard({ tour, i }) {
       }}
     >
       {/* card img with header */}
-      <div className="relative">
-        <div className="h-70 relative card-picture">
+      <div className="relative ">
+        <div className="h-70 relative card-picture  h-[230px] bg-gray-200">
           <img
             src={`${TOUR_COVER}/${tour.imageCover}`}
             alt="Tour 1"
@@ -37,7 +37,7 @@ function TourCard({ tour, i }) {
       {/* card body */}
       <div className="px-8 pt-2 pb-5 text-stone-500 font-thin space-y-4">
         <h4 className="text-stone-600 font-medium">
-          {tour.difficulty} {tour.locations.length}-day tour
+         <span className="capitalize">{tour.difficulty}</span>  {tour.locations.length}-day tour
         </h4>
         <p className="card__text">{tour.summary}</p>
         <div className="grid grid-cols-2 ms-3 gap-5 text-sm">

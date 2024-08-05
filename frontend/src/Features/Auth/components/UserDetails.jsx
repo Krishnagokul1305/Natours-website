@@ -56,10 +56,9 @@ function UserDetails() {
           </div>
         </div>
         <div className="flex items-center gap-5">
-          <div className="h-[100px] w-[100px] bg-white rounded-full overflow-hidden">
+          <div className="h-[100px] w-[100px] bg-gray-200 rounded-full overflow-hidden">
             <img
               src={previewUrl}
-              alt="Avatar"
               className="h-full w-full object-cover"
             />
           </div>

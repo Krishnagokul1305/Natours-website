@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchBookings } from "../../Tour/tourSlice";
 import UserLoader from "./UserLoader";
-import { USER_IMG } from "../../../../config";
 
 function UserBookings() {
   const navigate = useNavigate();
