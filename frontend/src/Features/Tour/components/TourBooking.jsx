@@ -4,16 +4,20 @@ import Button from "../../../components/Button";
 import BookingPopup from "./BookingPopup";
 import { useEffect, useState } from "react";
 import Popup from "../../../components/Popup";
+import { useDispatch, useSelector } from "react-redux";
+import { resetSuccess } from "../tourSlice";
 
 function TourBooking({ img, tourId }) {
   const { isLogged } = useSelector((store) => store.user);
   const { isLoading, success } = useSelector((store) => store.bookings);
   let [popupOpen, setPopupOpen] = useState(false);
+  const dispatch=useDispatch();
   useEffect(() => {
     if (popupOpen) {
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "auto";
+      dispatch(resetSuccess());
     }
 
     return () => {
