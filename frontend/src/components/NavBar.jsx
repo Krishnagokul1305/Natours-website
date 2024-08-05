@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import {logoBlack, logoWhite } from "../assets/index";
+import { logoBlack, logoWhite } from "../assets/index";
 import Button from "./Button";
 import Userbtn from "../Features/Auth/components/UserBtn";
 import { useSelector } from "react-redux";
@@ -209,7 +209,7 @@ function NavBar() {
               </li>
             </>
           ) : (
-            <Userbtn isScrolled={isScrolled} onClick={() => setIsOpen(false)} />
+            <Userbtn isScrolled={isScrolled} onclick={() => setIsOpen(false)} />
           )}
         </ul>
       </div>

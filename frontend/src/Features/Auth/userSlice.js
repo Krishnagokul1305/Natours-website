@@ -11,7 +11,7 @@ import { USER_IMG } from "../../../config";
 const initialState = {
   user: {
     name: "",
-    id:"",
+    id: "",
     photo: defaultuser,
     email: "",
     password: "",
@@ -25,7 +25,7 @@ const initialState = {
 const createUser = createAsyncThunk("user/signin", async function (user) {
   const response = await signin(user);
   localStorage.setItem("token", response.token);
-  return user;
+  return { ...user, id: response.userDetails.id };
 });
 
 const loginUser = createAsyncThunk("user/login", async function (user) {
@@ -35,7 +35,7 @@ const loginUser = createAsyncThunk("user/login", async function (user) {
   const userDetails = {
     name: response.userDetails.name,
     photo: response.userDetails.photo,
-    id:response.userDetails.id,
+    id: response.userDetails.id,
     email: user.email,
     password: user.password,
   };
@@ -84,9 +84,10 @@ const userSlice = createSlice({
         state.isLogged = true;
         state.success = true;
         state.user.name = action.payload.name;
+        state.user.photo = `${USER_IMG}/${action.payload.photo}`;
         state.user.email = action.payload.email;
         state.user.password = action.payload.password;
-        state.user.id=action.payload.id
+        state.user.id = action.payload.id;
       })
       .addCase(createUser.rejected, (state, action) => {
         state.isLoading = false;
@@ -106,7 +107,7 @@ const userSlice = createSlice({
         state.user.photo = `${USER_IMG}/${action.payload.photo}`;
         state.user.email = action.payload.email;
         state.user.password = action.payload.password;
-        state.user.id=action.payload.id
+        state.user.id = action.payload.id;
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.isLoading = false;

@@ -4,7 +4,7 @@ import Button from "../../../components/Button";
 import { logout } from "../userSlice";
 import { useNavigate } from "react-router-dom";
 
-function UserBtn({ isScrolled, onclick }) {
+function UserBtn({ isScrolled }) {
   const { name } = useSelector((store) => store.user.user) || "Default";
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -12,7 +12,6 @@ function UserBtn({ isScrolled, onclick }) {
   function logoutfn() {
     localStorage.removeItem("token");
     dispatch(logout());
-    onclick()
   }
 
   return (
