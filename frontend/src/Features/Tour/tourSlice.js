@@ -28,6 +28,12 @@ const createBooking = createAsyncThunk(
 const bookingsSlice = createSlice({
   name: "bookings",
   initialState,
+  reducers: {
+    resetSuccess: (state) => {
+      state.success = false;
+    },
+  },
+
   extraReducers: (builder) => {
     builder
       .addCase(fetchBookings.pending, (state) => {
