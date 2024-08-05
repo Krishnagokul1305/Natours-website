@@ -23,8 +23,9 @@ function UserBookings() {
   if (isLoading) return <UserLoader />;
   return (
     <div className="px-10 py-5 space-y-5 bg-white min-h-[40vh] w-[95%] m-auto rounded-md overflow-x-scroll">
-      <h1 className="font-extrabold text-ptext">Your Bookings</h1>
       {tourBookings.length ? (
+      <>
+      <h1 className="font-extrabold text-ptext">Your Bookings</h1>
         <table className="min-w-full bg-white">
           <thead>
             <tr>
@@ -41,12 +42,7 @@ function UserBookings() {
                 <td className="py-2 px-4 border-b">{i + 1}</td>
                 <td className="py-2 px-4 border-b">
                   <div className="flex items-center gap-2">
-                    <img
-                      src={`${USER_IMG}/${booking.tour.imageCover}`}
-                      className="h-[24px] rounded-md"
-                      alt=""
-                    />{" "}
-                    <h1>{booking.tour.name}</h1>{" "}
+                    <h1>{booking.tour.name}</h1>
                   </div>
                 </td>
                 <td className="py-2 px-4 border-b">
@@ -68,6 +64,7 @@ function UserBookings() {
             ))}
           </tbody>
         </table>
+        </>
       ) : (
         <p className="font-extrabold text-ptext text-center">
           No bookings yet!
