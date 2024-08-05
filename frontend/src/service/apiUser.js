@@ -23,7 +23,6 @@ export async function signin(newUser) {
     }
 
     const data = await res.json();
-     console.log(data)
     return data;
    
   } catch (error) {
@@ -47,7 +46,6 @@ export async function login(user) {
     }
 
     const data = await res.json();
-    console.log(data)
     return data;
 
   } catch (error) {
@@ -75,7 +73,6 @@ export async function updateUserPassword(password, newPassword, token) {
     }
 
     const data = await res.json();
-    console.log(data)
     return data;
   } catch (error) {
     console.error("Error updating password:", error);
@@ -98,7 +95,6 @@ export async function updateUser(formData, token) {
     }
 
     const data = await res.json();
-    console.log(data)
     return data;
   } catch (error) {
     console.error("Error updating password:", error);

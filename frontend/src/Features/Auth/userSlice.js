@@ -25,7 +25,11 @@ const initialState = {
 const createUser = createAsyncThunk("user/signin", async function (user) {
   const response = await signin(user);
   localStorage.setItem("token", response.token);
-  return { ...user, id: response.userDetails.id };
+  return {
+    ...user,
+    id: response.userDetails.id,
+    photo: response.userDetails.photo,
+  };
 });
 
 const loginUser = createAsyncThunk("user/login", async function (user) {
@@ -84,7 +88,10 @@ const userSlice = createSlice({
         state.isLogged = true;
         state.success = true;
         state.user.name = action.payload.name;
-        state.user.photo = `${USER_IMG}/${action.payload.photo}`;
+        state.user.photo =
+          action.payload.photo && action.payload.photo.includes("default.jpg")
+            ? defaultuser
+            : `${USER_IMG}/${action.payload.photo}`;
         state.user.email = action.payload.email;
         state.user.password = action.payload.password;
         state.user.id = action.payload.id;
@@ -104,7 +111,9 @@ const userSlice = createSlice({
         state.isLogged = true;
         state.success = true;
         state.user.name = action.payload.name;
-        state.user.photo = `${USER_IMG}/${action.payload.photo}`;
+        state.user.photo = action.payload.photo.includes("default.jpg")
+          ? defaultuser
+          : `${USER_IMG}/${action.payload.photo}`;
         state.user.email = action.payload.email;
         state.user.password = action.payload.password;
         state.user.id = action.payload.id;
