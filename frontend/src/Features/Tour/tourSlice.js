@@ -66,6 +66,8 @@ const bookingsSlice = createSlice({
   },
 });
 
+export const { resetSuccess } = bookingsSlice.actions;
+
 export { fetchBookings, createBooking };
 
 export default bookingsSlice.reducer;
