@@ -2,12 +2,18 @@ import { Link } from "react-router-dom";
 import TourCard from "../../Features/Tour/components/TourCard";
 import { motion } from "framer-motion";
 import { staggerContainer, textVariant } from "../../utils/motion";
+import { getPopularTour } from "../../service/apiTours";
+import { useQuery } from "@tanstack/react-query";
+import LoaderMini from "../../components/LoaderMini";
 
-function PremiumTours({ tours }) {
-  if (!tours) return null;
+function PremiumTours() {
+  const { data, isLoading } = useQuery({
+    queryKey: ["popularTours"],
+    queryFn: getPopularTour,
+  });
   return (
     <motion.section
-      className="h-auto py-20"
+      className="h-auto min-h-[20vh] py-20"
       variants={staggerContainer(0.5, 0.5)}
       initial="hidden"
       whileInView={"show"}
@@ -25,17 +31,17 @@ function PremiumTours({ tours }) {
         </motion.p>
       </div>
 
-      {tours.length ? (
+      {isLoading ? (
+        <LoaderMini />
+      ) : (
         <motion.div
           className="flex justify-center items-center gap-10 my-10 flex-wrap mt-16"
           variants={staggerContainer(0.5, 0.5)}
         >
-          {tours.map((tour, i) => (
+          {data.map((tour, i) => (
             <TourCard key={i} tour={tour} i={i} />
           ))}
         </motion.div>
-      ) : (
-        <p className="text-center my-5"> failed to fetch data 🥲</p>
       )}
     </motion.section>
   );

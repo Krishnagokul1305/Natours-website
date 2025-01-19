@@ -1,17 +1,21 @@
 import { motion } from "framer-motion";
 import { fadeIn, staggerContainer } from "../../../utils/motion";
-import { TOUR_COVER } from "../../../../config";
+import { TOUR_IMAGES } from "../../../../config";
 
-function TourAbout({ img, description, name }) {
+function TourAbout({ description, name, images }) {
   return (
     <motion.div
-      className="px-5 py-20 flex flex-wrap flex-col md:flex-row "
+      className="px-5 py-20  "
       variants={staggerContainer(0.5, 0.5)}
       initial="hidden"
       whileInView={"show"}
+      id="about"
       viewport={{ once: true, amount: 0.25 }}
     >
-      <motion.div className="space-y-7 max-w-[50rem] mx-auto flex-1 flex item flex-col justify-center md:px-10 px-5" variants={fadeIn("right","spring",0.5,0.75)}>
+      <motion.div
+        className="space-y-7 max-w-7xl text-center mx-auto justify-center md:px-10 px-5"
+        variants={fadeIn("right", "spring", 0.5, 0.75)}
+      >
         <h1 className="text-2xl font-bold text-ptext font-oswald tracking-widest head text-center">
           About {name}
         </h1>
@@ -19,13 +23,19 @@ function TourAbout({ img, description, name }) {
           {description}
         </p>
       </motion.div>
-      <motion.div className="mt-10 md:w-1/2"  variants={fadeIn("left","spring",0.5,0.75)}>
-        <img
-          src={`${TOUR_COVER}/${img}`}
-          alt=""
-          className="h-auto w-[90%] object-contain m-auto"
-        />
-      </motion.div>
+
+      <div className="mt-5 md:mt-10 space-y-5 mx-auto">
+        <motion.div className=" flex items-center gap-10 flex-col md:flex-row justify-center">
+          {images.map((img, i) => (
+            <motion.img
+              key={i}
+              src={`${TOUR_IMAGES}/${img}`}
+              className="h-64"
+              variants={fadeIn("right", "spring", i * 0.5, 0.75)}
+            />
+          ))}
+        </motion.div>
+      </div>
     </motion.div>
   );
 }

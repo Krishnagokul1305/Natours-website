@@ -1,8 +1,15 @@
 import { motion } from "framer-motion";
-import { fadeIn, staggerContainer, textVariant } from "../../../utils/motion";
-import { TOUR_COVER, TOUR_IMAGES } from "../../../../config";
+import { staggerContainer, textVariant } from "../../../utils/motion";
+import { TOUR_COVER } from "../../../../config";
 
-function TourLander({ name, imageCover, summary, images }) {
+function TourLander({ name, imageCover, summary }) {
+  const handleExploreClick = () => {
+    const aboutSection = document.getElementById("about");
+    if (aboutSection) {
+      aboutSection.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <motion.div
       className="h-screen bg-cover bg-center flex flex-col justify-center items-center text-white text-center px-5"
@@ -33,24 +40,13 @@ function TourLander({ name, imageCover, summary, images }) {
       >
         &quot; {summary} &quot;
       </motion.p>
-      <div className="mt-5 md:mt-10 space-y-10">
-        <motion.h1
-          className="font-bold  gallery-title relative w-fit m-auto"
-          variants={textVariant(0.4)}
-        >
-          Top Destinations
-        </motion.h1>
-        <motion.div className=" flex items-center gap-10 xl:overflow-visible overflow-scroll">
-          {images.map((img, i) => (
-            <motion.img
-              key={i}
-              src={`${TOUR_IMAGES}/${img}`}
-              className="h-64"
-              variants={fadeIn("right","spring",i*0.5,0.75)}
-            />
-          ))}
-        </motion.div>
-      </div>
+      <motion.button
+        variants={textVariant(0.3)}
+        onClick={handleExploreClick}
+        className="bg-white focus:ring-white rounded-full  focus:ring-offset-white text-gray-800 px-7 py-3 text-sm mt-5  transition-all duration-300 focus:outline-none focus:ring-1 focus:ring-offset-2 font-bold flex flex-row items-center gap-2 hover:translate-y-[-4px] hover:shadow-lg"
+      >
+        Explore More
+      </motion.button>
     </motion.div>
   );
 }

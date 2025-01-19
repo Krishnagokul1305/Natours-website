@@ -1,19 +1,32 @@
-import { useLoaderData, useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import TourLander from "../components/TourLander";
 import TourAbout from "../components/TourAbout";
 import TourReviews from "../components/TourReviews";
-import TourBooking from "../components/TourBooking";
-import TourTimeLine from "../components/TourTimeLine";
+// import TourBooking from "../components/TourBooking";
 import { lArrow } from "../../../assets";
 import { motion } from "framer-motion";
+import { useQuery } from "@tanstack/react-query";
+import { getTourById } from "../../../service/apiTours";
+import LoaderMini from "../../../components/LoaderMini";
+import TourDestinationMap from "../components/TourDestinationMap";
+import { useEffect } from "react";
 
 function Tour() {
-  const tour = useLoaderData();
+  const { id } = useParams();
+  
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+
+  const { data: tour, isLoading } = useQuery({
+    queryKey: ["tour", id],
+    queryFn: () => getTourById(id),
+  });
   const navigate = useNavigate();
+  if (isLoading) return <LoaderMini />;
   return (
-    <motion.div
-      className="font-poppins overflow-x-hidden"
-    >
+    <motion.div className="font-poppins overflow-x-hidden">
       <button
         className="absolute top-5 left-5 bg-white w-[50px] h-[50px] rounded-full"
         onClick={() => navigate(-1)}
@@ -24,7 +37,6 @@ function Tour() {
         name={tour.name}
         imageCover={tour.imageCover}
         summary={tour.summary}
-        images={tour.images}
       />
       <TourAbout
         name={tour.name}
@@ -32,28 +44,29 @@ function Tour() {
         duration={tour.duration}
         maxGroupSize={tour.maxGroupSize}
         img={tour.imageCover}
+        images={tour.images}
         place={tour.startLocation.description}
       />
-      <TourTimeLine
-        locations={tour.locations}
-        startLocation={tour.startLocation}
-      />
+      <div className="max-w-7xl mx-auto p-5">
+        <h1 className="text-2xl font-bold text-ptext mb-7 font-oswald tracking-widest head text-center">
+          Destinations
+        </h1>
+        <TourDestinationMap locations={tour.locations} />
+      </div>
       <TourReviews
         ratingsAverage={tour.ratingsAverage}
         ratingsQuantity={tour.ratingsQuantity}
         reviews={tour.reviews}
       />
-      <TourBooking
+      {/* <TourBooking
         price={tour.price}
         startDates={tour.startDates}
         locations={tour.locations}
         img={tour.imageCover}
         tourId={tour.id}
-      />
+      /> */}
     </motion.div>
   );
 }
-
-
 
 export default Tour;
