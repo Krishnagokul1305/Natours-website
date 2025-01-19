@@ -1,9 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { logoBlack, logoWhite } from "../assets/index";
-import Button from "./Button";
-import Userbtn from "../Features/Auth/components/UserBtn";
-import { useSelector } from "react-redux";
 import { motion } from "framer-motion";
 
 const navbarVariant = {
@@ -24,7 +21,6 @@ function NavBar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
-  const { isLogged } = useSelector((store) => store.user);
   const [animate, setAnimate] = useState(location.pathname === "/");
 
   const handleScroll = () => {
@@ -53,7 +49,7 @@ function NavBar() {
 
   return (
     <motion.nav
-      className={`h-15 py-5 px-8 md:px-40 fixed z-10 top-0 w-full ${
+      className={`h-15 py-3 px-8 md:px-40 fixed z-10 top-0 w-full ${
         isScrolled ? "glassy-white shadow-lg" : "bg-transparent text-white"
       } flex items-center justify-between transition-all duration-300`}
       variants={animate ? navbarVariant : undefined}
@@ -92,7 +88,7 @@ function NavBar() {
         </li>
       </ul>
       <div className="hidden md:flex gap-4">
-        {!isLogged ? (
+        {/* {!isLogged ? (
           <>
             <Button
               variant={`${isScrolled ? "secondaryUnfill" : "primaryUnfill"}`}
@@ -111,7 +107,7 @@ function NavBar() {
           </>
         ) : (
           <Userbtn isScrolled={isScrolled} />
-        )}
+        )} */}
       </div>
       <div
         className="md:hidden flex items-center w-[50px] h-[50px] rounded-full bg-gray-200 absolute top-5 right-5"
@@ -185,7 +181,7 @@ function NavBar() {
               Process
             </a>
           </li>
-          {!isLogged ? (
+          {/* {!isLogged ? (
             <>
               <li>
                 <Button
@@ -210,7 +206,7 @@ function NavBar() {
             </>
           ) : (
             <Userbtn isScrolled={isScrolled} onclick={() => setIsOpen(false)} />
-          )}
+          )} */}
         </ul>
       </div>
     </motion.nav>

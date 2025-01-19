@@ -10,7 +10,7 @@ function TourCard({ tour, i }) {
 
   return (
     <motion.div
-      className="shadow-lg hover:translate-y-[-10px] hover:shadow-xl transition-all max-w-[23rem]"
+      className="shadow-lg rounded-sm overflow-hidden hover:translate-y-[-10px] hover:shadow-xl transition-all max-w-[23rem]"
       variants={textVariant(0.2 * i)}
       whileHover={{
         translateY: -10,

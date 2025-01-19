@@ -10,22 +10,22 @@ const trips = [
   {
     icon: route,
     title: "Trip Planning",
-    description: "We plan on what to do during the trip days.",
+    description: "We help create an itinerary tailored to your needs.",
   },
   {
     icon: calendar,
     title: "Trip Booking",
-    description: "We plan on what to do during the trip days.",
+    description: "We handle reservations to ensure a smooth journey.",
   },
   {
     icon: bag,
     title: "Trip Preparation",
-    description: "We plan on what to do during the trip days.",
+    description: "We assist with packing lists and travel essentials.",
   },
   {
     icon: flight,
     title: "Trip Experience",
-    description: "We plan on what to do during the trip days.",
+    description: "We ensure memorable moments throughout your trip.",
   },
 ];
 

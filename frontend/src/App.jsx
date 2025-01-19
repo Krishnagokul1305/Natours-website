@@ -10,6 +10,9 @@ import "./index.css";
 import AppLayout from "./AppLayout";
 import PageNotFound from "./pages/PageNotFound/PageNotFound";
 
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+
 // Lazy loading components
 const ToursOverview = lazy(() => import("./Features/Tour/pages/ToursOverview"));
 const Tour = lazy(() => import("./Features/Tour/pages/Tour"));
@@ -27,13 +30,10 @@ const ProtectedRoute = lazy(() =>
   import("./Features/Auth/components/ProtectedRoute")
 );
 
-import {
-  allToursLoader,
-  popularTourLoader,
-  tourLoader,
-} from "./Loaders/tourLoaders";
 import Loader from "./components/Loader";
 import ErrorElement from "./components/ErrorElement";
+
+const queryClient = new QueryClient();
 
 const router = createBrowserRouter([
   {
@@ -46,7 +46,6 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <HomePage />,
-        loader: popularTourLoader,
       },
       {
         path: "/home",
@@ -59,7 +58,6 @@ const router = createBrowserRouter([
             <ToursOverview />
           </Suspense>
         ),
-        loader: allToursLoader,
         errorElement: <ErrorElement />,
       },
       {
@@ -69,7 +67,6 @@ const router = createBrowserRouter([
             <Tour />
           </Suspense>
         ),
-        loader: tourLoader,
         errorElement: <ErrorElement />,
       },
       {
@@ -146,7 +143,12 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <QueryClientProvider client={queryClient}>
+      <ReactQueryDevtools initialIsOpen={false} />
+      <RouterProvider router={router} />
+    </QueryClientProvider>
+  );
 }
 
 export default App;
