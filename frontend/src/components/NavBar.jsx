@@ -32,15 +32,15 @@ function NavBar() {
   };
 
   useEffect(() => {
-    const isHomePage = location.pathname === "/";
-    setAnimate(isHomePage);
+    // const isHomePage = location.pathname === "/";
+    // setAnimate(isHomePage);
 
-    if (isHomePage) {
+    // if (isHomePage) {
       setIsScrolled(window.scrollY > 200);
       window.addEventListener("scroll", handleScroll);
-    } else {
-      setIsScrolled(true);
-    }
+    // } else {
+    //   setIsScrolled(true);
+    // }
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
@@ -110,7 +110,7 @@ function NavBar() {
         )} */}
       </div>
       <div
-        className="md:hidden flex items-center w-[50px] h-[50px] rounded-full bg-gray-200 absolute top-5 right-5"
+        className="md:hidden flex items-center w-[50px] h-[50px] rounded-full bg-gray-200 absolute top-3 right-5"
         onClick={() => setIsOpen(true)}
       >
         {/*  */}

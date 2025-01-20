@@ -1,39 +1,19 @@
-import { Link, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { loginUser } from "../userSlice";
+import { Link } from "react-router-dom";
+import { useState } from "react";
 
 function LoginForm() {
   let [email, setEmail] = useState("");
   let [password, setPassword] = useState("");
 
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-
-  const { isLoading, success } = useSelector((store) => store.user);
-
   function submitForm(e) {
     e.preventDefault();
-    const user = {
-      email,
-      password,
-    };
-    dispatch(loginUser(user));
     setEmail("");
     setPassword("");
   }
 
-  useEffect(() => {
-    if (success) {
-      navigate("/");
-    }
-  }, [success, navigate]);
-
   return (
     <div
-      className={`text-center md:px-10 px-4 py-10 glassy md:me-52  rounded-lg shadow-lg space-y-5  ${
-        isLoading && "opacity-80 blur-[1px]"
-      }`}
+      className={`text-center md:px-10 px-4 py-10 glassy md:me-52  rounded-lg shadow-lg space-y-5 `}
     >
       <h1 className="text-5xl font-bold font-oswald text-ptext">Welcome</h1>
       <p className="font-bold text-lg text-gray-700">Login</p>
@@ -77,7 +57,6 @@ function LoginForm() {
             placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            disabled={isLoading}
           />
         </div>
 
@@ -105,7 +84,6 @@ function LoginForm() {
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            disabled={isLoading}
           />
         </div>
 
@@ -121,7 +99,6 @@ function LoginForm() {
         <button
           className=" rounded-full transition-all duration-300 focus:outline-none focus:ring-1 focus:ring-offset-2 font-bold flex flex-row items-center gap-2 hover:translate-y-[-4px] hover:shadow-lg mx-auto bg-white focus:ring-white  focus:ring-offset-white text-gray-800  px-10 py-3 mt-5"
           onClick={(e) => submitForm(e)}
-          disabled={isLoading}
         >
           Login
         </button>

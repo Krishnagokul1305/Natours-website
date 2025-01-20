@@ -11,7 +11,7 @@ import AppLayout from "./AppLayout";
 import PageNotFound from "./pages/PageNotFound/PageNotFound";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 // Lazy loading components
 const ToursOverview = lazy(() => import("./Features/Tour/pages/ToursOverview"));
@@ -32,6 +32,7 @@ const ProtectedRoute = lazy(() =>
 
 import Loader from "./components/Loader";
 import ErrorElement from "./components/ErrorElement";
+import PaymentButton from "./components/PaymentButton";
 
 const queryClient = new QueryClient();
 
@@ -144,10 +145,11 @@ const router = createBrowserRouter([
 
 function App() {
   return (
-    <QueryClientProvider client={queryClient}>
-      <ReactQueryDevtools initialIsOpen={false} />
-      <RouterProvider router={router} />
-    </QueryClientProvider>
+    <PaymentButton />
+    // <QueryClientProvider client={queryClient}>
+    //   <ReactQueryDevtools initialIsOpen={false} />
+    //   <RouterProvider router={router} />
+    // </QueryClientProvider>
   );
 }
 

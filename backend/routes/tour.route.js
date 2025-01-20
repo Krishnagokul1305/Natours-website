@@ -15,7 +15,7 @@ const {
 const { protect, restrictTo } = require('../controllers/authController');
 
 const TourRoute = express.Router();
-const reviewRoute = require('../routes/reviewRoute');
+const reviewRoute = require('../routes/review.route');
 
 // route for all tours
 TourRoute.route('/')

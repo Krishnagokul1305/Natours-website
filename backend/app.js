@@ -5,15 +5,18 @@ const morgan = require('morgan');
 const helmet = require('helmet');
 const sanitizer = require('express-mongo-sanitize');
 const xxs = require('xss-clean');
-const TourRoute = require('./routes/tourRoutes');
-const userRoute = require('./routes/userRoutes');
-const reviewRoute = require('./routes/reviewRoute');
+
+const TourRoute = require('./routes/tour.route');
+const userRoute = require('./routes/user.route');
+const reviewRoute = require('./routes/review.route');
+const bookingsRoute = require('./routes/Bookings.route');
+const paymentRoutes = require('./routes/Payment.route');
+
 const AppErrors = require('./utils/AppError');
 const errorHandler = require('./controllers/errorController');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const path = require('path');
-const bookingsRoute = require('./routes/BookingsRoute');
 
 app.use(cors());
 
@@ -53,6 +56,8 @@ app.use('/api/v1/users', userRoute);
 app.use('/api/v1/reviews', reviewRoute);
 
 app.use('/api/v1/bookings', bookingsRoute);
+
+app.use('/api/v1/payment', paymentRoutes);
 
 // app.use('/api/v1/tours/:tourId/reviews', reviewRoute);
 
