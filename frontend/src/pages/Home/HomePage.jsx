@@ -8,8 +8,7 @@ import Process from "./Process";
 
 function HomePage() {
   const popularTours = useLoaderData();
-  
-  console.log(popularTours)
+
   return (
     <div>
       <NavBar />
@@ -17,7 +16,6 @@ function HomePage() {
       <PremiumTours tours={popularTours} />
       <Process />
       <NewsLetter />
-      <Footer />
     </div>
   );
 }

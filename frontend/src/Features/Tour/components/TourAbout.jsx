@@ -13,10 +13,10 @@ function TourAbout({ description, name, images }) {
       viewport={{ once: true, amount: 0.25 }}
     >
       <motion.div
-        className="space-y-7 max-w-7xl text-center mx-auto justify-center md:px-10 px-5"
-        variants={fadeIn("right", "spring", 0.5, 0.75)}
+        className="space-y-3 max-w-7xl text-center mx-auto justify-center md:px-10 px-5"
+        variants={fadeIn("up", "spring", 0.5, 0.75)}
       >
-        <h1 className="text-2xl font-bold text-ptext font-oswald tracking-widest head text-center">
+        <h1 className="text-2xl font-bold text-ptext font-oswald tracking-widest text-center">
           About {name}
         </h1>
         <p className="text-gray-600 leading-5 md:leading-8 text-sm md:text-base">
@@ -24,7 +24,7 @@ function TourAbout({ description, name, images }) {
         </p>
       </motion.div>
 
-      <div className="mt-5 md:mt-10 space-y-5 mx-auto">
+      <div className="mt-10 space-y-5 mx-auto">
         <motion.div className=" flex items-center gap-10 flex-col md:flex-row justify-center">
           {images.map((img, i) => (
             <motion.img

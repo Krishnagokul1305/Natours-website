@@ -11,5 +11,8 @@
     "start-client": "cd Frontend && npm run dev"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "@tanstack/react-query-devtools": "^4.36.1"
+  }
 }

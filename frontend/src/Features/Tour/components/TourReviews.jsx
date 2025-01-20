@@ -15,7 +15,7 @@ function TourReviews({ reviews }) {
   const handleSubmit = () => {};
 
   return (
-    <div className="px-10 py-20 max-w-7xl mx-auto ">
+    <div className="md:px-10 px-5 py-20 max-w-7xl mx-auto ">
       {/* Heading */}
       <div className="text-center mb-10 space-y-3">
         <h2 className="text-3xl font-bold text-ptext font-oswald tracking-widest head text-center">

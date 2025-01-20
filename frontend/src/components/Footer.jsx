@@ -2,12 +2,12 @@ import { logofullblack } from "../assets";
 
 function Footer() {
   return (
-    <footer className="font-poppins bg-[#f7f7f7] px-10 py-7 flex  items-center justify-between md:flex-row flex-col space-y-5 md:space-y-0">
+    <footer className="font-poppins bg-[#f7f7f7] px-10 py-5 flex  items-center justify-between md:flex-row flex-col space-y-5 md:space-y-0">
       <div className="">
         <img
           src={logofullblack}
           alt="Natours logo"
-          className="h-[40px] md:h-[50px]"
+          className="h-[40px]"
         />
       </div>
       <div className="flex items-center flex-col gap-3 text-gray-700 md:items-end">

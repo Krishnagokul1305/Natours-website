@@ -22,7 +22,7 @@ const {
   protect,
   restrictTo,
 } = require('../controllers/authController');
-const bookingsRoute = require('./BookingsRoute');
+const bookingsRoute = require('./Bookings.route');
 
 const userRoute = express.Router();
 userRoute.route('/signup').post(signUp);
