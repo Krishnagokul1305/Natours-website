@@ -21,14 +21,18 @@ const {
   updatePassword,
   protect,
   restrictTo,
+  getCurrentUser,
+  logoutUser,
 } = require('../controllers/authController');
 const bookingsRoute = require('./Bookings.route');
 
 const userRoute = express.Router();
 userRoute.route('/signup').post(signUp);
 userRoute.route('/login').post(login);
+userRoute.route("/getUser").get(getCurrentUser);
 userRoute.route('/forgotpassword').post(forgotPassword);
 userRoute.route('/resetPassword/:token').post(resetPassword);
+userRoute.route('/logout').get(logoutUser);
 
 userRoute.use(protect);
 userRoute.route('/me').get(getMe, getUser);

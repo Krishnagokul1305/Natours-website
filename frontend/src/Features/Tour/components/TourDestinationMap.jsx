@@ -36,7 +36,7 @@ function TourDestinationMap({ locations}) {
         mapRef.current.remove();
       }
     };
-  }, []);
+  }, [locations]);
 
   return (
     <div id="map-container" ref={mapContainerRef} className="h-[500px]">

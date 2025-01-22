@@ -1,5 +1,6 @@
 import { useState } from "react";
 import TourReviewsCard from "./TourReviewsCard";
+import { useUsers } from "../../Auth/hooks/useUser";
 
 function TourReviews({ reviews }) {
   const [formData, setFormData] = useState({
@@ -12,6 +13,8 @@ function TourReviews({ reviews }) {
     setFormData({ ...formData, [name]: value });
   };
 
+  const { data, isLoading } = useUsers();
+
   const handleSubmit = () => {};
 
   return (
@@ -22,7 +25,7 @@ function TourReviews({ reviews }) {
           Reviews
         </h2>
         <p className="text-base text-gray-500 italic">
-        &quot;Traveling – it leaves you speechless, then turns you into a
+          &quot;Traveling – it leaves you speechless, then turns you into a
           storyteller.&quot;
         </p>
       </div>
@@ -34,48 +37,52 @@ function TourReviews({ reviews }) {
         ))}
       </div>
 
-      <div>
-        <div className="flex md:items-center gap-2 md:justify-between mb-2 flex-col md:flex-row justify-start">
-          <h1 className=" font-semibold text-lg text-gray-700">
-            Write Your Review
-          </h1>
-          <div className="flex space-x-2 mb-2">
-            {[1, 2, 3, 4, 5].map((star) => (
-              <svg
-                key={star}
-                // onClick={() => handleRatingChange(star)}
-                className={`w-6 h-6 cursor-pointer ${
-                  formData.rating >= star ? "text-yellow-500" : "text-gray-300"
-                }`}
-                xmlns="http://www.w3.org/2000/svg"
-                fill="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
-              </svg>
-            ))}
-          </div>
-        </div>
-        {/* Description Input */}
+      {data && !isLoading && (
         <div>
-          <textarea
-            name="description"
-            rows="4"
-            className="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-ptext focus:outline-none mb-4"
-            placeholder="Write your review here..."
-            value={formData.description}
-            onChange={handleInputChange}
-          ></textarea>
-        </div>
+          <div className="flex md:items-center gap-2 md:justify-between mb-2 flex-col md:flex-row justify-start">
+            <h1 className=" font-semibold text-lg text-gray-700">
+              Write Your Review
+            </h1>
+            <div className="flex space-x-2 mb-2">
+              {[1, 2, 3, 4, 5].map((star) => (
+                <svg
+                  key={star}
+                  // onClick={() => handleRatingChange(star)}
+                  className={`w-6 h-6 cursor-pointer ${
+                    formData.rating >= star
+                      ? "text-yellow-500"
+                      : "text-gray-300"
+                  }`}
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                </svg>
+              ))}
+            </div>
+          </div>
+          {/* Description Input */}
+          <div>
+            <textarea
+              name="description"
+              rows="4"
+              className="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-ptext focus:outline-none mb-4"
+              placeholder="Write your review here..."
+              value={formData.description}
+              onChange={handleInputChange}
+            ></textarea>
+          </div>
 
-        {/* Submit Button */}
-        <button
-          onClick={handleSubmit}
-          className="ms-auto block bg-ptext text-white py-2 px-4 rounded-lg hover:bg-ptext/90 transition duration-200"
-        >
-          Submit Review
-        </button>
-      </div>
+          {/* Submit Button */}
+          <button
+            onClick={handleSubmit}
+            className="ms-auto block bg-ptext text-white py-2 px-4 rounded-lg hover:bg-ptext/90 transition duration-200"
+          >
+            Submit Review
+          </button>
+        </div>
+      )}
     </div>
   );
 }

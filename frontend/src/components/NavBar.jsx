@@ -2,6 +2,9 @@ import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { logoBlack, logoWhite } from "../assets/index";
 import { motion } from "framer-motion";
+import { useUsers } from "../Features/Auth/hooks/useUser";
+import Button from "./Button";
+import UserBtn from "../Features/Auth/components/UserBtn";
 
 const navbarVariant = {
   hidden: { y: -100, opacity: 0 },
@@ -21,7 +24,7 @@ function NavBar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
-  const [animate, setAnimate] = useState(location.pathname === "/");
+  const [animate] = useState(location.pathname === "/");
 
   const handleScroll = () => {
     if (window.scrollY > 100) {
@@ -36,8 +39,8 @@ function NavBar() {
     // setAnimate(isHomePage);
 
     // if (isHomePage) {
-      setIsScrolled(window.scrollY > 200);
-      window.addEventListener("scroll", handleScroll);
+    setIsScrolled(window.scrollY > 200);
+    window.addEventListener("scroll", handleScroll);
     // } else {
     //   setIsScrolled(true);
     // }
@@ -47,11 +50,12 @@ function NavBar() {
     };
   }, [location.pathname]);
 
+  const { isLoading, data } = useUsers();
   return (
     <motion.nav
       className={`h-15 py-3 px-8 md:px-40 fixed z-10 top-0 w-full ${
         isScrolled ? "glassy-white shadow-lg" : "bg-transparent text-white"
-      } flex items-center justify-between transition-all duration-300`}
+      } flex items-center justify-between gap-5 transition-all duration-300`}
       variants={animate ? navbarVariant : undefined}
       initial={animate ? "hidden" : "show"}
       animate="show"
@@ -88,7 +92,12 @@ function NavBar() {
         </li>
       </ul>
       <div className="hidden md:flex gap-4">
-        {/* {!isLogged ? (
+        {isLoading ? (
+          <div className="flex space-x-4">
+            <div className="skeleton-button w-20 h-8 rounded"></div>
+            <div className="skeleton-button w-20 h-8 rounded"></div>
+          </div>
+        ) : !data ? (
           <>
             <Button
               variant={`${isScrolled ? "secondaryUnfill" : "primaryUnfill"}`}
@@ -106,8 +115,8 @@ function NavBar() {
             </Button>
           </>
         ) : (
-          <Userbtn isScrolled={isScrolled} />
-        )} */}
+          <UserBtn isScrolled={isScrolled} user={data} />
+        )}
       </div>
       <div
         className="md:hidden flex items-center w-[50px] h-[50px] rounded-full bg-gray-200 absolute top-3 right-5"

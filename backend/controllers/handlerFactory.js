@@ -3,6 +3,7 @@ const AppError = require('../utils/AppError');
 const ApiFeatures = require('../utils/ApiFeatures');
 const tourModel = require('../model/tourModel');
 const Email = require('../utils/email');
+
 // deleting documents handler
 exports.deleteOne = (model) =>
   catchAsync(async (req, res) => {

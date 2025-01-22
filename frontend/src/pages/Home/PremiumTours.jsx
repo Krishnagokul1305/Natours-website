@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { staggerContainer, textVariant } from "../../utils/motion";
 import { getPopularTour } from "../../service/apiTours";
 import { useQuery } from "@tanstack/react-query";
-import LoaderMini from "../../components/LoaderMini";
+import CardSkeleton from "../../components/CardSkeleton";
 
 function PremiumTours() {
   const { data, isLoading } = useQuery({
@@ -13,7 +13,7 @@ function PremiumTours() {
   });
   return (
     <motion.section
-      className="h-auto min-h-[20vh] py-20"
+      className="h-auto min-h-[20vh] py-20 space-y-5"
       variants={staggerContainer(0.5, 0.5)}
       initial="hidden"
       whileInView={"show"}
@@ -32,7 +32,7 @@ function PremiumTours() {
       </div>
 
       {isLoading ? (
-        <LoaderMini />
+        <CardSkeleton />
       ) : (
         <motion.div
           className="flex justify-center items-center gap-10 my-10 flex-wrap mt-16"

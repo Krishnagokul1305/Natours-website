@@ -1,40 +1,30 @@
-import { useDispatch, useSelector } from "react-redux";
 import { defaultuser } from "../../../assets";
 import Button from "../../../components/Button";
-import { logout } from "../userSlice";
 import { useNavigate } from "react-router-dom";
+import { useLogout } from "../hooks/useLogout";
 
-function UserBtn({ isScrolled ,onclick}) {
-  const { name } = useSelector((store) => store.user.user) || "Default";
-  const dispatch = useDispatch();
+function UserBtn({ isScrolled, user }) {
   const navigate = useNavigate();
-
-  function logoutfn() {
-    localStorage.removeItem("token");
-    dispatch(logout());
-  }
+  console.log(user);
+  const { logout, isPending } = useLogout();
 
   return (
     <div>
       <div className="md:flex gap-10 items-center flex-col md:flex-row md:gap-5 hidden">
-        <Button
-          variant={`${isScrolled ? "secondary" : "primary"}`}
-          type="small"
-          onClick={() => {
-            navigate("/user");
-            onclick();
-          }}
+        <div
+          className="flex items-center gap-2 cursor-pointer"
+          onClick={() => navigate(`/user/${user._id}/`)}
         >
           <img src={defaultuser} alt="" className="h-[27px]" />
-          <h1>{name}</h1>
-        </Button>
+          <h1 className="font-semibold capitalize">{user.name}</h1>
+        </div>
 
         <Button
           variant={`${isScrolled ? "secondaryUnfill" : "primaryUnfill"}`}
           type="small"
-          onClick={logoutfn}
+          onClick={() => logout()}
         >
-          Logout
+          {isPending ? "Logging out" : "Logout"}
         </Button>
       </div>
       <div className="flex gap-10 items-center flex-col md:flex-row md:gap-5 md:hidden">
@@ -44,11 +34,11 @@ function UserBtn({ isScrolled ,onclick}) {
           onClick={() => navigate("/user")}
         >
           <img src={defaultuser} alt="" className="h-[27px]" />
-          <h1>{name}</h1>
+          <h1 className="capitalize">{user.name || ""}</h1>
         </Button>
 
-        <Button variant={"secondary"} type="small" onClick={logoutfn}>
-          Logout
+        <Button variant={"secondary"} type="small" onClick={() => logout()}>
+          {isPending ? "Logging out" : "Logout"}
         </Button>
       </div>
     </div>

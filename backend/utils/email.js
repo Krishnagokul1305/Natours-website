@@ -5,13 +5,13 @@ module.exports = class Email {
   constructor(user, url) {
     this.user = user;
     this.url = url;
-    this.from = 'gokul <krishnagokul1729@gmail.com>';
+    this.from = 'krishnagokul1729@gmail.com';
   }
 
   newTransport() {
     return nodemailer.createTransport({
       host: 'sandbox.smtp.mailtrap.io',
-      port: 2525,
+      port: 587,
       auth: {
         user: '3cdee7ce347300',
         pass: '269f4524e75e06',
@@ -24,7 +24,7 @@ module.exports = class Email {
     const html = this.replacePlaceholders(template, placeholders);
 
     const mailOptions = {
-      from: this.from,
+      from: 'Natours-A tour booking app',
       to: this.user.email,
       subject,
       html,
@@ -61,5 +61,39 @@ module.exports = class Email {
         tourPrice: tourDetails.price,
       }
     );
+  }
+  async sendTourRegistration(tourDetails) {
+    await this.send(
+      'Tour Registration Successful',
+      `${__dirname}/../view/tourRegistration.html`,
+      {
+        name: this.user.name,
+        url: this.url,
+        tourName: tourDetails.name,
+        tourDate: tourDetails.date,
+        tourDetails: tourDetails.details,
+      }
+    );
+  }
+
+  async sendTestEmail() {
+    const testEmail = 'krishnagokul1729@gmail.com';
+    const subject = 'Test Email from Natours';
+    const html =
+      '<h1>This is a test email to check email sending functionality!</h1>';
+
+    const mailOptions = {
+      from: 'Natours-A tour booking app',
+      to: testEmail,
+      subject,
+      html,
+    };
+
+    try {
+      await this.newTransport().sendMail(mailOptions);
+      console.log('Test email sent successfully');
+    } catch (error) {
+      console.error('Error sending test email:', error);
+    }
   }
 };

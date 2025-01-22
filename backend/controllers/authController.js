@@ -7,19 +7,78 @@ const Email = require('../utils/email');
 
 // Function to sign JWT token
 const signToken = (id) => {
-  return jwt.sign({ id }, process.env.JWT_SECRET_STRING, {
-    expiresIn: '10d',
-  });
+  return jwt.sign({ id }, process.env.JWT_SECRET_STRING, { expiresIn: '2d' });
 };
+
+const getCurrentUser = catchAsync(async (req, res, next) => {
+  const token = req.cookies.jwt;
+  console.log(token);
+  if (!token) {
+    return res.status(401).json({ message: 'Not authenticated' });
+  }
+
+  let decoded;
+  try {
+    // Verify JWT token
+    decoded = jwt.verify(token, process.env.JWT_SECRET_STRING);
+  } catch (err) {
+    if (err.name === 'TokenExpiredError') {
+      // Handle token expiration by clearing the cookie
+      res.clearCookie('jwt');
+
+      return res
+        .status(401)
+        .json({ message: 'Token has expired. Please log in again.' });
+    }
+
+    // Handle other token-related errors
+    return res.status(401).json({ message: 'Invalid token' });
+  }
+
+  if (!decoded.id) {
+    return res.status(401).json({ message: 'Invalid token payload' });
+  }
+
+  // Retrieve current user based on decoded JWT
+  const currentUser = await userModel.findById(decoded.id);
+  if (!currentUser) {
+    return res.status(401).json({ message: 'User not found' });
+  }
+
+  // Check if user's password was changed after the token was issued
+  if (await currentUser.isUpdated(decoded.iat)) {
+    return res.status(401).json({ message: 'Password has changed' });
+  }
+  console.log(currentUser);
+  // Respond with user details
+  res.status(200).json({
+    status: 'success',
+    data: {
+      user: currentUser,
+    },
+  });
+});
+
+const logoutUser = catchAsync(async (req, res, next) => {
+  res.clearCookie('jwt', {
+    httpOnly: true, // ensures the cookie is not accessible by JavaScript
+    secure: process.env.NODE_ENV === 'production', // sends the cookie only over HTTPS in production
+    sameSite: 'Strict', // protect against CSRF attacks
+  });
+  res.send({ success: true });
+});
 
 // Function to send token in response
 const sendTokenResponse = (res, user) => {
+  console.log('token response');
   const token = signToken(user._id);
-  // Set JWT cookie with expiration
+
   res.cookie('jwt', token, {
-    expires: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000), // 90 days in milliseconds
+    expires: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000), // 90 days in milliseconds
     httpOnly: true,
   });
+
+  console.log(res.cookie);
 
   const userDetails = {
     name: user.name,
@@ -45,13 +104,14 @@ const signUp = catchAsync(async (req, res, next) => {
     confirmPassword: req.body.confirmPassword,
     role: req.body.role,
   });
+  console.log(newUser);
   const url = '';
-  new Email({ name: req.body.name, url, email: req.body.email }).sendWelcome();
+  // new Email({ name: req.body.name, url, email: req.body.email }).sendWelcome();
 
   if (req.body.password != req.body.confirmPassword) {
     return next(new AppError('password does not match confirmpassword'));
   }
-  // Send token in response upon successful signup
+
   sendTokenResponse(res, newUser);
 });
 
@@ -80,6 +140,8 @@ const protect = catchAsync(async (req, res, next) => {
   ) {
     token = req.headers.authorization.split(' ')[1];
   }
+  if (req.cookies.jwt) token = req.cookies.jwt;
+
   if (!token) {
     return next(new AppError('Unauthorized access - please log in', 401));
   }
@@ -225,4 +287,6 @@ module.exports = {
   forgotPassword,
   resetPassword,
   updatePassword,
+  getCurrentUser,
+  logoutUser,
 };

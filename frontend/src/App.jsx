@@ -32,7 +32,6 @@ const ProtectedRoute = lazy(() =>
 
 import Loader from "./components/Loader";
 import ErrorElement from "./components/ErrorElement";
-import PaymentButton from "./components/PaymentButton";
 
 const queryClient = new QueryClient();
 
@@ -71,7 +70,7 @@ const router = createBrowserRouter([
         errorElement: <ErrorElement />,
       },
       {
-        path: "/user",
+        path: "/user/:id",
         element: (
           <Suspense fallback={<Loader />}>
             <ProtectedRoute>
@@ -145,11 +144,10 @@ const router = createBrowserRouter([
 
 function App() {
   return (
-    <PaymentButton />
-    // <QueryClientProvider client={queryClient}>
-    //   <ReactQueryDevtools initialIsOpen={false} />
-    //   <RouterProvider router={router} />
-    // </QueryClientProvider>
+    <QueryClientProvider client={queryClient}>
+      <ReactQueryDevtools initialIsOpen={false} />
+      <RouterProvider router={router} />
+    </QueryClientProvider>
   );
 }
 
