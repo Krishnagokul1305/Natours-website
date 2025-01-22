@@ -1,15 +1,21 @@
+import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom"; // Assuming you're using react-router-dom for navigation
+import { useUsers } from "../hooks/useUser";
 
 function ProtectedRoute({ children }) {
   const navigate = useNavigate();
-  const { isLogged } = useSelector((store) => store.user);
+
+  const { isError, isLoading, data } = useUsers();
+
   useEffect(() => {
-    if (!isLogged || !localStorage.getItem("token")) {
+    if (!isLoading && (!data || isError)) {
       navigate("/auth/login");
     }
-  }, [isLogged, navigate]);
+  }, [isLoading, isError, navigate, data]);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
   return <>{children}</>;
 }

@@ -8,7 +8,7 @@ mongoose
   .connect(
     `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@app.m1lmn2d.mongodb.net/?retryWrites=true&w=majority&appName=app`
   )
-  .then((con) => console.log('connected'))
+  .then(() => console.log('connected'))
   .catch((err) => console.log(err));
 
 // server

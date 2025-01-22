@@ -1,27 +1,42 @@
-import { useDispatch, useSelector } from "react-redux";
-import { updatePassword, updateUserDetails } from "../userSlice";
 import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { useUsers } from "../hooks/useUser";
 
 function UserDetails() {
-  const user = useSelector((store) => store.user.user);
+  const { data: user, isLoading } = useUsers();
 
-  const [newPassword, setnewPassword] = useState("");
   const [file, setFile] = useState(null);
-  const [previewUrl, setPreviewUrl] = useState(user.photo);
-  const [name, setName] = useState(user.name);
+  const [previewUrl, setPreviewUrl] = useState(user?.photo || "");
 
-  const dispatch = useDispatch();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      name: user.name,
+      newPassword: "",
+      confirmPassword: "",
+    },
+  });
 
-  function changePassword() {
-    dispatch(updatePassword({ password: user.password, newPassword }));
+  if (isLoading) {
+    return <div>Loading...</div>;
   }
 
-  function changeUserDetails() {
+  const onSubmitUserDetails = (data) => {
     const formData = new FormData();
     if (file) formData.append("photo", file);
-    formData.append("name", name);
-    dispatch(updateUserDetails(formData));
-  }
+    formData.append("name", data.name);
+    // dispatch(updateUserDetails(formData));
+  };
+
+  const onSubmitPasswordChange = (data) => {
+    if (data.newPassword !== data.confirmPassword) {
+      return; // Handle password mismatch error
+    }
+    // dispatch(updatePassword({ password: user.password, newPassword: data.newPassword }));
+  };
 
   function handleFileChange(e) {
     const selectedFile = e.target.files[0];
@@ -34,16 +49,21 @@ function UserDetails() {
   return (
     <div className="px-10 py-5 space-y-5 bg-white h-full w-[95%] m-auto rounded-md">
       <h1 className="font-extrabold text-ptext">Your Account Settings</h1>
-      <div className="space-y-4 border-b-2 pb-5">
+      <form
+        onSubmit={handleSubmit(onSubmitUserDetails)}
+        className="space-y-4 border-b-2 pb-5"
+      >
         <div className="grid md:grid-cols-2 gap-5 md:gap-14 ">
           <div className="flex flex-col gap-2">
             <label htmlFor="name">Name</label>
             <input
+              {...register("name", { required: "Name is required" })}
               type="text"
               className="border border-stext rounded-md p-2 focus:outline-none"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
             />
+            {errors.name && (
+              <p className="text-red-500 text-sm">{errors.name.message}</p>
+            )}
           </div>
           <div className="flex flex-col gap-2">
             <label htmlFor="email">Email</label>
@@ -57,10 +77,7 @@ function UserDetails() {
         </div>
         <div className="flex items-center gap-5">
           <div className="h-[100px] w-[100px] bg-gray-200 rounded-full overflow-hidden">
-            <img
-              src={previewUrl}
-              className="h-full w-full object-cover"
-            />
+            <img src={previewUrl} className="h-full w-full object-cover" />
           </div>
           <div className="relative inline-block">
             <input
@@ -74,42 +91,59 @@ function UserDetails() {
           </div>
         </div>
         <button
+          type="submit"
           className="ms-auto block bg-primary text-white px-4 py-2 rounded-full hover:bg-blue-600 focus:outline-none cursor-pointer"
-          onClick={changeUserDetails}
         >
           Save changes
         </button>
-      </div>
-      <div className="py-2 space-y-5">
+      </form>
+
+      <form
+        onSubmit={handleSubmit(onSubmitPasswordChange)}
+        className="py-2 space-y-5"
+      >
         <h1 className="font-extrabold text-ptext">Change password</h1>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-14 ">
           <div className="flex flex-col gap-2">
-            <label htmlFor="password">Password</label>
-            <input
-              type="text"
-              className="border border-stext rounded-md p-2 focus:outline-none"
-              value={user.password}
-              disabled
-            />
-          </div>
-          <div className="flex flex-col gap-2">
             <label htmlFor="newPassword">New Password</label>
             <input
+              {...register("newPassword", {
+                required: "New password is required",
+              })}
               type="password"
               className="border border-stext rounded-md p-2 focus:outline-none"
-              value={newPassword}
-              onChange={(e) => setnewPassword(e.target.value)}
               placeholder="new password"
             />
+            {errors.newPassword && (
+              <p className="text-red-500 text-sm">
+                {errors.newPassword.message}
+              </p>
+            )}
+          </div>
+          <div className="flex flex-col gap-2">
+            <label htmlFor="confirmPassword">Confirm New Password</label>
+            <input
+              {...register("confirmPassword", {
+                required: "Please confirm your new password",
+              })}
+              type="password"
+              className="border border-stext rounded-md p-2 focus:outline-none"
+              placeholder="confirm new password"
+            />
+            {errors.confirmPassword && (
+              <p className="text-red-500 text-sm">
+                {errors.confirmPassword.message}
+              </p>
+            )}
           </div>
         </div>
         <button
+          type="submit"
           className="ms-auto block bg-primary text-white px-4 py-2 rounded-full hover:bg-blue-600 focus:outline-none cursor-pointer"
-          onClick={changePassword}
         >
           Save changes
         </button>
-      </div>
+      </form>
     </div>
   );
 }

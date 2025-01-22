@@ -24,6 +24,9 @@ const bookingsSchema = mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    paymentId: {
+      type: String,
+    },
   },
   {
     timestamps: true,

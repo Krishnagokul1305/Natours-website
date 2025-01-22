@@ -7,16 +7,12 @@ import { lArrow } from "../../../assets";
 import { motion } from "framer-motion";
 import { useQuery } from "@tanstack/react-query";
 import { getTourById } from "../../../service/apiTours";
-import LoaderMini from "../../../components/LoaderMini";
 import TourDestinationMap from "../components/TourDestinationMap";
-import { useEffect } from "react";
+import Footer from "../../../components/Footer";
+import Loader from "../../../components/Loader";
 
 function Tour() {
   const { id } = useParams();
-  
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
 
 
   const { data: tour, isLoading } = useQuery({
@@ -24,7 +20,7 @@ function Tour() {
     queryFn: () => getTourById(id),
   });
   const navigate = useNavigate();
-  if (isLoading) return <LoaderMini />;
+  if (isLoading) return <Loader />;
   return (
     <motion.div className="font-poppins overflow-x-hidden">
       <button
@@ -58,13 +54,7 @@ function Tour() {
         ratingsQuantity={tour.ratingsQuantity}
         reviews={tour.reviews}
       />
-      {/* <TourBooking
-        price={tour.price}
-        startDates={tour.startDates}
-        locations={tour.locations}
-        img={tour.imageCover}
-        tourId={tour.id}
-      /> */}
+      <Footer />
     </motion.div>
   );
 }

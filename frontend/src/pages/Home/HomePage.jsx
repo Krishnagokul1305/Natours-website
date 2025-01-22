@@ -16,6 +16,7 @@ function HomePage() {
       <PremiumTours tours={popularTours} />
       <Process />
       <NewsLetter />
+      <Footer/>
     </div>
   );
 }
