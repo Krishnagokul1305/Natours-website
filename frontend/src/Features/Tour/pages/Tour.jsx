@@ -3,6 +3,7 @@ import TourLander from "../components/TourLander";
 import TourAbout from "../components/TourAbout";
 import TourReviews from "../components/TourReviews";
 // import TourBooking from "../components/TourBooking";
+
 import { lArrow } from "../../../assets";
 import { motion } from "framer-motion";
 import { useQuery } from "@tanstack/react-query";
@@ -10,17 +11,19 @@ import { getTourById } from "../../../service/apiTours";
 import TourDestinationMap from "../components/TourDestinationMap";
 import Footer from "../../../components/Footer";
 import Loader from "../../../components/Loader";
+import BookingForm from "../../Booking/components/BookingForm";
+import { useUsers } from "../../Auth/hooks/useUser";
 
 function Tour() {
   const { id } = useParams();
-
 
   const { data: tour, isLoading } = useQuery({
     queryKey: ["tour", id],
     queryFn: () => getTourById(id),
   });
   const navigate = useNavigate();
-  if (isLoading) return <Loader />;
+  const { data, isLoading: userLoading } = useUsers();
+  if (isLoading || userLoading) return <Loader />;
   return (
     <motion.div className="font-poppins overflow-x-hidden">
       <button
@@ -53,7 +56,9 @@ function Tour() {
         ratingsAverage={tour.ratingsAverage}
         ratingsQuantity={tour.ratingsQuantity}
         reviews={tour.reviews}
+        data={data}
       />
+      <BookingForm user={data} tourPrice={tour.price} tourId={tour._id} />
       <Footer />
     </motion.div>
   );

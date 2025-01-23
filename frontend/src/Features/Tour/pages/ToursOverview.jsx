@@ -1,7 +1,7 @@
 import TourCard from "../components/TourCard";
 import NavBar from "../../../components/NavBar";
 import { motion } from "framer-motion";
-import { staggerContainer } from "../../../utils/motion";
+import { staggerContainer, textVariant } from "../../../utils/motion";
 import { useQuery } from "@tanstack/react-query";
 import { getAllTours } from "../../../service/apiTours";
 import CardSkeleton from "../../../components/CardSkeleton";
@@ -29,13 +29,25 @@ function ToursOverview() {
         <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black opacity-80"></div>
 
         {/* Hero Section */}
-        <div className="relative flex flex-col items-center justify-center h-full text-center text-white">
-          <p className="text-lg uppercase tracking-wide font-oswald">
+        <motion.div
+          className="relative flex flex-col items-center justify-center h-full text-center text-white"
+          variants={staggerContainer(0.5, 0.5)}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.25 }}
+        >
+          <motion.p
+            className="text-lg uppercase tracking-wide font-oswald"
+            variants={textVariant(0.2)}
+          >
             Let us plan you a perfect
-          </p>
-          <h1 className="font-extrabold text-7xl sm:text-8xl md:text-9xl lg:text-[8rem] xl:text-[10rem] font-oswald leading-none mb-10">
+          </motion.p>
+          <motion.h1
+            className="font-extrabold text-7xl sm:text-8xl md:text-9xl lg:text-[8rem] xl:text-[10rem] font-oswald leading-none mb-10"
+            variants={textVariant(0.3)}
+          >
             Explore Trip
-          </h1>
+          </motion.h1>
           <motion.div
             initial={{ y: 0 }}
             animate={{ y: 10 }}
@@ -67,29 +79,35 @@ function ToursOverview() {
               />
             </svg>
           </motion.div>
-        </div>
+        </motion.div>
       </div>
-      <div className="my-20 space-y-7" id="tours">
-        <h1 className="text-2xl font-bold text-ptext font-oswald tracking-widest head text-center">
-          Our Tours
-        </h1>
-        <motion.div
-          variants={staggerContainer(0.5, 0.5)}
-          initial="hidden"
-          animate="show"
-          viewport={{ once: true, amount: 0.25 }}
+      <motion.div
+        className="my-20 space-y-7"
+        id="tours"
+        variants={staggerContainer(0.5, 0.5)}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, amount: 0.25 }}
+      >
+        <motion.h1
+          className="text-2xl font-bold text-ptext font-oswald tracking-widest head text-center"
+          variants={textVariant(0.2)}
         >
+          Our Tours
+        </motion.h1>
+        <motion.div variants={textVariant(0.2)} className="p-5">
           {isLoading ? (
             <CardSkeleton size={6} />
           ) : (
-            <div className="flex  max-w-7xl mx-auto justify-center items-center gap-16  flex-wrap">
+            <div className="flex max-w-7xl mx-auto justify-center items-center gap-16 flex-wrap">
               {data.map((tour, i) => (
                 <TourCard key={tour.id} tour={tour} i={i} />
               ))}
+             
             </div>
           )}
         </motion.div>
-      </div>
+      </motion.div>
       <Footer />
     </>
   );

@@ -49,8 +49,6 @@ const getCurrentUser = catchAsync(async (req, res, next) => {
   if (await currentUser.isUpdated(decoded.iat)) {
     return res.status(401).json({ message: 'Password has changed' });
   }
-  console.log(currentUser);
-  // Respond with user details
   res.status(200).json({
     status: 'success',
     data: {

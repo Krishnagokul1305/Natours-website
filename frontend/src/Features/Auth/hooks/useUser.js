@@ -7,6 +7,5 @@ export function useUsers() {
     queryFn: getCurrentUser,
     retry: false,
   });
-  console.log(data);
   return { data, isError, isLoading };
 }

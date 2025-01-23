@@ -16,7 +16,7 @@ async function getUserBookings(id) {
     }
 
     const { data: bookings } = await res.json();
-    console.log(bookings)
+    console.log(bookings);
     return bookings;
   } catch (err) {
     console.error(err);
@@ -24,21 +24,23 @@ async function getUserBookings(id) {
   }
 }
 
-async function postBookings({ tourId, userId, token }) {
+async function postBookings({ tourId, userId ,paymentId}) {
+  console.log(tourId,userId)
   try {
     const res = await fetch(`${BASE_URL}/bookings`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify({ tour: tourId, user: userId }),
+      body: JSON.stringify({ tour: tourId, user: userId ,paid:true,paymentId}),
+      credentials: "include",
     });
     if (!res.ok) {
       throw new Error(`Request failed with status ${res.status}`);
     }
 
     const { data: booking } = await res.json();
+    console.log(booking)
     return booking;
   } catch (err) {
     console.error(err);

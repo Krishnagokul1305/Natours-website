@@ -1,20 +1,20 @@
 import { logoWhite } from "../../../assets/index";
 import Button from "../../../components/Button";
-import usePayment from "../../Booking/hooks/usePayment";
+import usePayment from "../hooks/usePayment";
 
-function TourBooking({ user }) {
-  const { createOrder ,isCreatingOrder} = usePayment();
+function BookingForm({ user, tourPrice, tourId }) {
+
+  const { createAndPay, isProcessing } = usePayment();
   return (
-    <section className="px-5 py-16 bg-gray-100">
-      <div className="mx-auto  rounded-2xl  w-fit px-5 py-7  shadow-xl flex items-center overflow-hidden bg-white">
-        <div className="bg-primary  rounded-full md:translate-x-[-55%] translate-x-[-80%] w-[150px] h-[150px] flex items-center justify-center shadow-lg">
+    <section className="px-5 py-16">
+      <div className="mx-auto  rounded-2xl  w-fit px-5 py-7 border flex items-center overflow-hidden bg-white">
+        <div className="bg-primary hidden md:flex  rounded-full md:translate-x-[-55%] translate-x-[-80%] w-[150px] h-[150px]  items-center justify-center shadow-lg">
           <img
             src={logoWhite}
             alt="Natours logo"
             className="object-contain h-[6rem]"
           />
         </div>
-
         <div className="flex items-start md:items-center gap-5 md:gap-14 flex-col md:flex-row justify-between">
           <div className=" space-y-2 md:space-y-4">
             {user ? (
@@ -34,8 +34,19 @@ function TourBooking({ user }) {
           </div>
 
           {user ? (
-            <Button type="big" variant="secondary" onClick={() => createOrder()}>
-              {isCreatingOrder ? "booking..." : "Book tour now!"} 
+            <Button
+              type="big"
+              variant="secondary"
+              onClick={() =>
+                createAndPay({
+                  amount: "1",
+                  currency: "INR",
+                  userId: user._id,
+                  tourId,
+                })
+              }
+            >
+              {isProcessing ? "booking..." : "Book tour now!"}
             </Button>
           ) : (
             <Button type="big" variant="secondary" to="/auth/login">
@@ -48,4 +59,4 @@ function TourBooking({ user }) {
   );
 }
 
-export default TourBooking;
+export default BookingForm;
