@@ -53,7 +53,6 @@ const updateMe = catchAsync(async (req, res, next) => {
   if (req.body.password || req.body.confirmPassword) {
     return next(new AppError('This route is not for password updates', 400));
   }
-
   let filtered = filterOptions(req.body, 'name', 'email', 'photo');
   if (req.fileName) {
     filtered.photo = req.fileName;
@@ -63,7 +62,7 @@ const updateMe = catchAsync(async (req, res, next) => {
     runValidators: true,
     new: true,
   });
-
+console.log(updated)
   res.status(201).json({
     status: 'success',
     data: updated,

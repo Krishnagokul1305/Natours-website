@@ -28,7 +28,7 @@ function CardSkeleton({ size = 3 }) {
   ));
 
   return (
-    <div className="grid grid-cols-3 max-w-7xl mx-auto justify-center items-center gap-16  flex-wrap">
+    <div className="grid grid-cols-1 md:grid-cols-2  lg:grid-cols-3 max-w-7xl mx-auto justify-center items-center gap-16 ">
       {skeletonCards}
     </div>
   );

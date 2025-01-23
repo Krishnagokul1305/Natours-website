@@ -1,8 +1,7 @@
 import { useState } from "react";
 import TourReviewsCard from "./TourReviewsCard";
-import { useUsers } from "../../Auth/hooks/useUser";
 
-function TourReviews({ reviews }) {
+function TourReviews({ reviews, data }) {
   const [formData, setFormData] = useState({
     description: "",
     rating: "",
@@ -12,8 +11,6 @@ function TourReviews({ reviews }) {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
-
-  const { data, isLoading } = useUsers();
 
   const handleSubmit = () => {};
 
@@ -37,7 +34,7 @@ function TourReviews({ reviews }) {
         ))}
       </div>
 
-      {data && !isLoading && (
+      {data && false && (
         <div>
           <div className="flex md:items-center gap-2 md:justify-between mb-2 flex-col md:flex-row justify-start">
             <h1 className=" font-semibold text-lg text-gray-700">

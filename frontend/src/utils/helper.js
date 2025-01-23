@@ -1,3 +1,5 @@
+import { format } from 'date-fns';
+
 export function formatCurrency(value) {
   return new Intl.NumberFormat("en", {
     style: "currency",
@@ -16,4 +18,8 @@ export function formatDate(dateString) {
 
   const options = { year: "numeric", month: "long" };
   return date.toLocaleDateString("en-US", options);
+}
+
+export function formatToReadableDate(timestamp) {
+  return format(new Date(timestamp), 'MMM dd yyyy');
 }

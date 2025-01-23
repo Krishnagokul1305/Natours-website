@@ -5,27 +5,27 @@ import { useLogout } from "../hooks/useLogout";
 
 function UserBtn({ isScrolled, user }) {
   const navigate = useNavigate();
-  console.log(user);
   const { logout, isPending } = useLogout();
 
   return (
     <div>
       <div className="md:flex gap-10 items-center flex-col md:flex-row md:gap-5 hidden">
         <div
-          className="flex items-center gap-2 cursor-pointer"
+          className="flex items-center gap-2 cursor-pointer rounded-full bg-white"
           onClick={() => navigate(`/user/${user._id}/`)}
         >
-          <img src={defaultuser} alt="" className="h-[27px]" />
-          <h1 className="font-semibold capitalize">{user.name}</h1>
+          <img src={defaultuser} alt="" className="h-[35px]" />
+          {/* <h1 className="font-semibold capitalize text-ptext">{user.name}</h1> */}
         </div>
 
-        <Button
-          variant={`${isScrolled ? "secondaryUnfill" : "primaryUnfill"}`}
-          type="small"
+        <button
+          className={`px-5 font-bold py-2  rounded-full ${
+            isScrolled ? `text-white bg-ptext/70` : "text-ptext bg-white"
+          }`}
           onClick={() => logout()}
         >
           {isPending ? "Logging out" : "Logout"}
-        </Button>
+        </button>
       </div>
       <div className="flex gap-10 items-center flex-col md:flex-row md:gap-5 md:hidden">
         <Button

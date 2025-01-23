@@ -13,7 +13,7 @@ function PremiumTours() {
   });
   return (
     <motion.section
-      className="h-auto min-h-[20vh] py-20 space-y-5"
+      className="h-auto min-h-[20vh] py-20 space-y-5 px-5"
       variants={staggerContainer(0.5, 0.5)}
       initial="hidden"
       whileInView={"show"}

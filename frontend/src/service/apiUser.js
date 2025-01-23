@@ -54,18 +54,18 @@ export async function login(user) {
   }
 }
 
-export async function updateUserPassword(password, newPassword, token) {
+export async function updateUserPassword({ currentPassword, newPassword }) {
   try {
     const res = await fetch(`${BASE_URL}/updatePassword`, {
       method: "PATCH",
       body: JSON.stringify({
-        currentPassword: password,
-        newPassword: newPassword,
+        currentPassword,
+        newPassword,
       }),
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
       },
+      credentials: "include",
     });
 
     if (!res.ok) {
@@ -80,14 +80,12 @@ export async function updateUserPassword(password, newPassword, token) {
   }
 }
 
-export async function updateUser(formData, token) {
+export async function updateUser(formData) {
   try {
     const res = await fetch(`${BASE_URL}/updateMe`, {
       method: "PATCH",
       body: formData,
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
+      credentials: "include",
     });
 
     if (!res.ok) {

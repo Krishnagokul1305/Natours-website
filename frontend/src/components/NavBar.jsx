@@ -104,7 +104,9 @@ function NavBar() {
               type="small"
               to="/auth"
             >
-              Login
+              <Link to="/auth" className="relative-link">
+                Login
+              </Link>
             </Button>
             <Button
               variant={`${isScrolled ? "secondary" : "primary"}`}
@@ -190,32 +192,22 @@ function NavBar() {
               Process
             </a>
           </li>
-          {/* {!isLogged ? (
+          {!data ? (
             <>
-              <li>
-                <Button
-                  variant="secondary"
-                  type="small"
-                  to="/auth"
-                  onClick={() => setIsOpen(false)}
-                >
+              <li onClick={() => setIsOpen(false)}>
+                <Link to="/auth" className="relative-link">
                   Login
-                </Button>
+                </Link>
               </li>
-              <li>
-                <Button
-                  variant="secondary"
-                  type="small"
-                  to="/auth/sign-in"
-                  onClick={() => setIsOpen(false)}
-                >
+              <li onClick={() => setIsOpen(false)}>
+                <Link to="/auth/sign-in" className="relative-link">
                   Sign-In
-                </Button>
+                </Link>
               </li>
             </>
           ) : (
-            <Userbtn isScrolled={isScrolled} onclick={() => setIsOpen(false)} />
-          )} */}
+            <UserBtn isScrolled={isScrolled} user={data} onclick={() => setIsOpen(false)} />
+          )}
         </ul>
       </div>
     </motion.nav>
