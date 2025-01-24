@@ -21,7 +21,6 @@ async function createTours() {
     // await Tour.create(tour);
     // await users.create(user);
     await reviews.create(review);
-    console.log('datas created');
   } catch (err) {
     console.log(err);
   }

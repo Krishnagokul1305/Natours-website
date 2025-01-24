@@ -9,7 +9,7 @@ function UserBtn({ isScrolled, user }) {
 
   return (
     <div>
-      <div className="md:flex gap-10 items-center flex-col md:flex-row md:gap-5 hidden">
+      <div className="md:flex gap-10 items-center flex-col md:flex-row md:gap-3 hidden">
         <div
           className="flex items-center gap-2 cursor-pointer rounded-full bg-white"
           onClick={() => navigate(`/user/${user._id}/`)}

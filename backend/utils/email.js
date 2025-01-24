@@ -49,7 +49,7 @@ module.exports = class Email {
   }
 
   async sendBookingConfirmation(tourDetails) {
-    console.log(tourDetails);
+  
     await this.send(
       'Booking Confirmation',
       `${__dirname}/../view/Booked.html`,

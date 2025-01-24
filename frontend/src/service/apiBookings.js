@@ -24,7 +24,7 @@ async function getUserBookings(id) {
   }
 }
 
-async function postBookings({ tourId, userId ,paymentId}) {
+async function postBookings( tourId, userId ,paymentId) {
   console.log(tourId,userId)
   try {
     const res = await fetch(`${BASE_URL}/bookings`, {

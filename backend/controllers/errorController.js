@@ -21,8 +21,6 @@ function invalidIdError(err, res) {
 
 // Centralized error handling middleware
 module.exports = (err, req, res, next) => {
-  console.error('error : ', err); // Log the error details
-  console.log(err.code, err.name);
   // Check if the error message contains the MongoDB duplicate error code
   if (err.message?.includes('E11000')) {
     err.statusCode = 409;

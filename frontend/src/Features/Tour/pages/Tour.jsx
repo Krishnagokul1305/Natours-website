@@ -28,7 +28,7 @@ function Tour() {
     <motion.div className="font-poppins overflow-x-hidden">
       <button
         className="absolute top-5 left-5 bg-white w-[50px] h-[50px] rounded-full"
-        onClick={() => navigate(-1)}
+        onClick={() => navigate("/tours")}
       >
         <img src={lArrow} alt="" className="w-[24px] m-auto" />
       </button>

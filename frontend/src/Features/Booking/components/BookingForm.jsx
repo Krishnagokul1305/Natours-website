@@ -3,12 +3,41 @@ import Button from "../../../components/Button";
 import usePayment from "../hooks/usePayment";
 
 function BookingForm({ user, tourPrice, tourId }) {
+  const {
+    createPayment,
+    isProcessingPayment,
+    createBooking,
+    isProcessingBooking,
+  } = usePayment();
 
-  const { createAndPay, isProcessing } = usePayment();
+  const handleBooking = async () => {
+    try {
+      // Step 1: Initiate payment
+      const paymentResponse = await new Promise((resolve, reject) => {
+        createPayment(
+          { amount: tourPrice * 100, currency: "INR" }, // Convert amount to smallest unit (e.g., paise for INR)
+          {
+            onSuccess: resolve,
+            onError: reject,
+          }
+        );
+      });
+
+      console.log(tourId, user._id);
+      createBooking({
+        tourId,
+        userId: user._id,
+        paymentId: paymentResponse?.razorpay_payment_id,
+      });
+    } catch (error) {
+      console.error("Error during payment or booking:", error);
+    }
+  };
+
   return (
     <section className="px-5 py-16">
-      <div className="mx-auto  rounded-2xl  w-fit px-5 py-7 border flex items-center overflow-hidden bg-white">
-        <div className="bg-primary hidden md:flex  rounded-full md:translate-x-[-55%] translate-x-[-80%] w-[150px] h-[150px]  items-center justify-center shadow-lg">
+      <div className="mx-auto rounded-2xl w-fit px-5 py-7 border flex items-center overflow-hidden bg-white">
+        <div className="bg-primary hidden md:flex rounded-full md:translate-x-[-55%] translate-x-[-80%] w-[150px] h-[150px] items-center justify-center shadow-lg">
           <img
             src={logoWhite}
             alt="Natours logo"
@@ -16,7 +45,7 @@ function BookingForm({ user, tourPrice, tourId }) {
           />
         </div>
         <div className="flex items-start md:items-center gap-5 md:gap-14 flex-col md:flex-row justify-between">
-          <div className=" space-y-2 md:space-y-4">
+          <div className="space-y-2 md:space-y-4">
             {user ? (
               <>
                 <h2 className="font-semibold text-ptext md:text-2xl">
@@ -37,16 +66,12 @@ function BookingForm({ user, tourPrice, tourId }) {
             <Button
               type="big"
               variant="secondary"
-              onClick={() =>
-                createAndPay({
-                  amount: "1",
-                  currency: "INR",
-                  userId: user._id,
-                  tourId,
-                })
-              }
+              onClick={handleBooking}
+              disabled={isProcessingPayment || isProcessingBooking}
             >
-              {isProcessing ? "booking..." : "Book tour now!"}
+              {isProcessingPayment || isProcessingBooking
+                ? "Processing..."
+                : "Book tour now!"}
             </Button>
           ) : (
             <Button type="big" variant="secondary" to="/auth/login">
