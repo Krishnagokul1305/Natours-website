@@ -34,6 +34,8 @@ app.options(
   })
 );
 
+app.set('trust proxy', 1);
+
 app.use(bodyParser.json());
 
 // middleware to parse the request body
