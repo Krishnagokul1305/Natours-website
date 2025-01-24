@@ -70,8 +70,10 @@ const sendTokenResponse = (res, user) => {
   const token = signToken(user._id);
 
   res.cookie('jwt', token, {
-    expires: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000), // 90 days in milliseconds
+    expires: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000),
     httpOnly: true,
+    sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax',
+    secure: process.env.NODE_ENV === 'production',
   });
 
 
