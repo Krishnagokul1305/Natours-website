@@ -96,6 +96,7 @@ function ToursOverview() {
           Our Tours
         </motion.h1>
         <motion.div variants={textVariant(0.2)} className="p-5">
+          
           {isLoading ? (
             <CardSkeleton size={6} />
           ) : (

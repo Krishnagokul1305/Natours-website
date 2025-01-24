@@ -2,16 +2,14 @@ import { useNavigate } from "react-router-dom";
 import Button from "../../../components/Button";
 import { formatDate } from "../../../utils/helper";
 import { motion } from "framer-motion";
-import { textVariant } from "../../../utils/motion";
 import { TOUR_COVER } from "../../../../config";
 
-function TourCard({ tour, i }) {
+function TourCard({ tour}) {
   const navigate = useNavigate();
 
   return (
     <motion.div
       className="shadow-lg rounded-sm overflow-hidden hover:translate-y-[-10px] hover:shadow-xl transition-all max-w-[23rem]"
-      variants={textVariant(0.2 * i)}
       whileHover={{
         translateY: -10,
         boxShadow: "0 10px 20px rgba(0, 0, 0, 0.1)",

@@ -24,7 +24,7 @@ function UserBtn({ isScrolled, user }) {
           }`}
           onClick={() => logout()}
         >
-          {isPending ? "Logging out" : "Logout"}
+          Logout
         </button>
       </div>
       <div className="flex gap-10 items-center flex-col md:flex-row md:gap-5 md:hidden">

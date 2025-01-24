@@ -30,19 +30,21 @@ function PremiumTours() {
           <Link to="/tours">View all &rarr;</Link>
         </motion.p>
       </div>
-
-      {isLoading ? (
-        <CardSkeleton />
-      ) : (
-        <motion.div
-          className="flex justify-center items-center gap-10 my-10 flex-wrap mt-16"
-          variants={staggerContainer(0.5, 0.5)}
-        >
-          {data.map((tour, i) => (
-            <TourCard key={i} tour={tour} i={i} />
-          ))}
-        </motion.div>
-      )}
+      <motion.div
+      variants={textVariant(0.3)}
+       initial="hidden"
+      whileInView={"show"}
+      viewport={{ once: true, amount: 0.25 }}>
+        {isLoading ? (
+          <CardSkeleton />
+        ) : (
+          <motion.div className="flex justify-center items-center gap-10 my-10 flex-wrap mt-16">
+            {data.map((tour, i) => (
+              <TourCard key={i} tour={tour} i={i} />
+            ))}
+          </motion.div>
+        )}
+      </motion.div>
     </motion.section>
   );
 }

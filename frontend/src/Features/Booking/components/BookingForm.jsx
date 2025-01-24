@@ -15,7 +15,7 @@ function BookingForm({ user, tourPrice, tourId }) {
       // Step 1: Initiate payment
       const paymentResponse = await new Promise((resolve, reject) => {
         createPayment(
-          { amount: tourPrice * 100, currency: "INR" }, // Convert amount to smallest unit (e.g., paise for INR)
+          { amount: tourPrice , currency: "INR" }, // Convert amount to smallest unit (e.g., paise for INR)
           {
             onSuccess: resolve,
             onError: reject,
@@ -23,7 +23,6 @@ function BookingForm({ user, tourPrice, tourId }) {
         );
       });
 
-      console.log(tourId, user._id);
       createBooking({
         tourId,
         userId: user._id,
@@ -36,7 +35,7 @@ function BookingForm({ user, tourPrice, tourId }) {
 
   return (
     <section className="px-5 py-16">
-      <div className="mx-auto rounded-2xl w-fit px-5 py-7 border flex items-center overflow-hidden bg-white">
+      <div className="mx-auto rounded-2xl w-fit px-5 md:py-7 py-10 border flex items-center overflow-hidden bg-white">
         <div className="bg-primary hidden md:flex rounded-full md:translate-x-[-55%] translate-x-[-80%] w-[150px] h-[150px] items-center justify-center shadow-lg">
           <img
             src={logoWhite}

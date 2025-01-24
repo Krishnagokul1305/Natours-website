@@ -13,7 +13,6 @@ export async function signin(newUser) {
     });
 
     if (!res.ok) {
-      console.log(res);
       throw new Error(
         `Error signing in: ${
           res.statusText.includes("Conflict")
@@ -132,7 +131,6 @@ export async function logoutService() {
     }
 
     let data = await res.json();
-    console.log(data);
     return data;
   } catch (error) {
     console.error("Error logging out:", error);
