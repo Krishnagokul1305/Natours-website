@@ -22,7 +22,6 @@ const path = require('path');
 
 app.use(
   cors({
-    origin: 'http://localhost:5173', // Allow only this origin
     credentials: true, // Allow cookies to be sent with requests
   })
 );
