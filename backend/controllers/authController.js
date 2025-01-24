@@ -60,7 +60,7 @@ const logoutUser = catchAsync(async (req, res, next) => {
   res.clearCookie('jwt', {
     httpOnly: true, // ensures the cookie is not accessible by JavaScript
     secure: process.env.NODE_ENV === 'production', // sends the cookie only over HTTPS in production
-    sameSite: 'Strict', // protect against CSRF attacks
+    sameSite: 'None', // protect against CSRF attacks
   });
   res.send({ success: true });
 });

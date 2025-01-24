@@ -16,7 +16,7 @@ import { useUsers } from "../../Auth/hooks/useUser";
 
 function Tour() {
   const { id } = useParams();
-
+ 
   const { data: tour, isLoading } = useQuery({
     queryKey: ["tour", id],
     queryFn: () => getTourById(id),

@@ -1,12 +1,14 @@
 import { useMutation } from "@tanstack/react-query";
 import { postBookings } from "../../../service/apiBookings";
+import toast from "react-hot-toast";
+import { API_BASE_URL } from "../../../../config";
 
 const usePayment = () => {
-  // Payment function
+
   const paymentMutation = useMutation({
     mutationFn: async ({ amount, currency }) => {
       const orderResponse = await fetch(
-        "http://localhost:8000/api/v1/payment/create-order",
+        `${API_BASE_URL}/payment/create-order`,
         {
           method: "POST",
           headers: {
@@ -32,7 +34,7 @@ const usePayment = () => {
           key: "rzp_test_kbl3MiiWsJqyGu", // Replace with your RazorPay Key ID
           amount: orderAmount,
           currency: orderCurrency,
-          name: "Your App Name",
+          name: "Natours",
           description: "Test Transaction",
           order_id: order_id,
           method: "upi",
@@ -60,8 +62,8 @@ const usePayment = () => {
 
       return paymentResponse;
     },
-    onSuccess: (data) => {
-      console.log("Payment successful:", data);
+    onSuccess: () => {
+      // console.log("Payment successful:", data);
     },
     onError: (error) => {
       console.error("Payment failed:", error);
@@ -71,7 +73,6 @@ const usePayment = () => {
   // Booking function
   const bookingMutation = useMutation({
     mutationFn: async ({ tourId, userId, paymentId }) => {
-      console.log(tourId, userId, paymentId)
       const bookingResponse = await postBookings(tourId, userId, paymentId);
 
       if (!bookingResponse) {
@@ -80,11 +81,11 @@ const usePayment = () => {
 
       return bookingResponse;
     },
-    onSuccess: (data) => {
-      console.log("Booking successful:", data);
+    onSuccess: () => {
+      toast.success("Booking successful")
     },
-    onError: (error) => {
-      console.error("Booking failed:", error);
+    onError: () => {
+      toast.success("Booking failed")
     },
   });
 

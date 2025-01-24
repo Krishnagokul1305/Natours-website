@@ -16,7 +16,6 @@ async function getUserBookings(id) {
     }
 
     const { data: bookings } = await res.json();
-    console.log(bookings);
     return bookings;
   } catch (err) {
     console.error(err);
@@ -25,7 +24,6 @@ async function getUserBookings(id) {
 }
 
 async function postBookings( tourId, userId ,paymentId) {
-  console.log(tourId,userId)
   try {
     const res = await fetch(`${BASE_URL}/bookings`, {
       method: "POST",
@@ -40,7 +38,6 @@ async function postBookings( tourId, userId ,paymentId) {
     }
 
     const { data: booking } = await res.json();
-    console.log(booking)
     return booking;
   } catch (err) {
     console.error(err);
