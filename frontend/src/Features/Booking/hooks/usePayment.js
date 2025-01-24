@@ -2,9 +2,9 @@ import { useMutation } from "@tanstack/react-query";
 import { postBookings } from "../../../service/apiBookings";
 
 const usePayment = () => {
-  const createAndPayMutation = useMutation({
-    mutationFn: async ({ amount, currency, tourId, userId }) => {
-      console.log(tourId, userId);
+  // Payment function
+  const paymentMutation = useMutation({
+    mutationFn: async ({ amount, currency }) => {
       const orderResponse = await fetch(
         "http://localhost:8000/api/v1/payment/create-order",
         {
@@ -21,8 +21,6 @@ const usePayment = () => {
       }
 
       const orderDetails = await orderResponse.json();
-
-      // Step 2: Handle payment
       const {
         id: order_id,
         amount: orderAmount,
@@ -59,28 +57,42 @@ const usePayment = () => {
         const paymentObject = new window.Razorpay(options);
         paymentObject.open();
       });
-      
 
-      // Step 3: Post booking data to the booking API
-      const bookingResponse = await postBookings(
-        tourId,
-        userId,
-        paymentResponse?.razorpay_payment_id
-      );
-      console.log(bookingResponse);
-      return bookingResponse;
+      return paymentResponse;
     },
     onSuccess: (data) => {
-      console.log(data);
+      console.log("Payment successful:", data);
     },
     onError: (error) => {
       console.error("Payment failed:", error);
     },
   });
 
+  // Booking function
+  const bookingMutation = useMutation({
+    mutationFn: async ({ tourId, userId, paymentId }) => {
+      console.log(tourId, userId, paymentId)
+      const bookingResponse = await postBookings(tourId, userId, paymentId);
+
+      if (!bookingResponse) {
+        throw new Error("Booking failed");
+      }
+
+      return bookingResponse;
+    },
+    onSuccess: (data) => {
+      console.log("Booking successful:", data);
+    },
+    onError: (error) => {
+      console.error("Booking failed:", error);
+    },
+  });
+
   return {
-    createAndPay: createAndPayMutation.mutate,
-    isProcessing: createAndPayMutation.isLoading,
+    createPayment: paymentMutation.mutate,
+    isProcessingPayment: paymentMutation.isLoading,
+    createBooking: bookingMutation.mutate,
+    isProcessingBooking: bookingMutation.isLoading,
   };
 };
 

@@ -103,7 +103,6 @@ function ToursOverview() {
               {data.map((tour, i) => (
                 <TourCard key={tour.id} tour={tour} i={i} />
               ))}
-             
             </div>
           )}
         </motion.div>

@@ -12,7 +12,6 @@ const signToken = (id) => {
 
 const getCurrentUser = catchAsync(async (req, res, next) => {
   const token = req.cookies.jwt;
-  console.log(token);
   if (!token) {
     return res.status(401).json({ message: 'Not authenticated' });
   }
@@ -68,7 +67,6 @@ const logoutUser = catchAsync(async (req, res, next) => {
 
 // Function to send token in response
 const sendTokenResponse = (res, user) => {
-  console.log('token response');
   const token = signToken(user._id);
 
   res.cookie('jwt', token, {
@@ -76,7 +74,6 @@ const sendTokenResponse = (res, user) => {
     httpOnly: true,
   });
 
-  console.log(res.cookie);
 
   const userDetails = {
     name: user.name,
@@ -102,7 +99,6 @@ const signUp = catchAsync(async (req, res, next) => {
     confirmPassword: req.body.confirmPassword,
     role: req.body.role,
   });
-  console.log(newUser);
   const url = '';
   // new Email({ name: req.body.name, url, email: req.body.email }).sendWelcome();
 
