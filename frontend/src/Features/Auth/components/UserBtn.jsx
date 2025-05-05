@@ -31,7 +31,7 @@ function UserBtn({ isScrolled, user }) {
         <Button
           variant={"secondary"}
           type="small"
-          onClick={() => navigate("/user")}
+          onClick={() => navigate(`/user/${user._id}/`)}
         >
           <img src={defaultuser} alt="" className="h-[27px]" />
           <h1 className="capitalize">{user.name || ""}</h1>
