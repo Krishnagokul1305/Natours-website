@@ -26,13 +26,11 @@ function SignInForm() {
       navigate("/"); // Redirect after success
     },
     onError: (error) => {
-      toast.error(error.message);
-      console.log(error);
+      toast.error(error.message || "Something went wrong");
     },
   });
 
   const submitForm = (data) => {
-    console.log("Form submitted", data);
     mutate(data); // Submit the form data to the mutation
   };
 

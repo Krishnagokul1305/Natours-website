@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { logofullblack } from "../../../assets/index";
 import { FaHome, FaList, FaSignOutAlt } from "react-icons/fa";
-import { MdSettings } from "react-icons/md";
+import { MdReviews, MdSettings } from "react-icons/md";
 
 function UserNav() {
   const [isOpen, setIsOpen] = useState(false);
@@ -14,7 +14,7 @@ function UserNav() {
   return (
     <>
       <div
-        className={`fixed lg:static top-0 left-0 h-full z-20 bg-white transition-transform duration-300 ${
+        className={`fixed lg:static top-0 left-0 h-full z-30 bg-white transition-transform duration-300 ${
           isOpen
             ? "translate-x-0 lg:translate-x-0"
             : "-translate-x-full lg:translate-x-0"
@@ -52,14 +52,22 @@ function UserNav() {
             <FaList />
             <h1>Bookings</h1>
           </Link>
+          <Link
+            className="bg-gray-100 px-5 py-4 rounded-lg flex items-center gap-2 cursor-pointer hover:bg-gray-200 hover:translate-x-1 transition-all"
+            to="reviews"
+            onClick={toggleNav}
+          >
+            <MdReviews />
+            <h1>Reviews</h1>
+          </Link>
         </div>
         <div className="mt-auto bg-gray-100 px-5 py-4 rounded-lg flex items-center gap-2 cursor-pointer hover:bg-gray-200 hover:translate-x-1 transition-all">
-        <FaSignOutAlt/>
+          <FaSignOutAlt />
           <h1>Logout</h1>
         </div>
       </div>
       <div
-        className={`fixed top-0 left-0 h-full w-full bg-black bg-opacity-50 transition-opacity duration-300 lg:hidden ${
+        className={`fixed top-0 left-0 h-full w-full bg-black bg-opacity-50 z-20 transition-opacity duration-300 lg:hidden ${
           isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
         }`}
         onClick={toggleNav}

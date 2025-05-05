@@ -31,10 +31,8 @@ exports.updateOne = (model) =>
     });
   });
 
-// post handler function
 exports.createOne = (model, isBooking) =>
   catchAsync(async (req, res) => {
-    console.log(req.body)
     const doc = await model.create(req.body);
     if (isBooking) {
       const tour = await tourModel.findById(req.body.tour);
