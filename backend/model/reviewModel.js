@@ -71,8 +71,8 @@ reviewSchema.post('save', function () {
 
 reviewSchema.pre(/^find/, function () {
   this.populate({
-    path: 'user',
-    select: 'name photo',
+    path: 'tour user',
+    select: 'name photo email',
   });
 });
 

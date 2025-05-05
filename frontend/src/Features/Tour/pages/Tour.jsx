@@ -16,7 +16,7 @@ import { useUsers } from "../../Auth/hooks/useUser";
 
 function Tour() {
   const { id } = useParams();
- 
+
   const { data: tour, isLoading } = useQuery({
     queryKey: ["tour", id],
     queryFn: () => getTourById(id),
@@ -52,12 +52,13 @@ function Tour() {
         </h1>
         <TourDestinationMap locations={tour.locations} />
       </div>
-{/*       <TourReviews
+      <TourReviews
+        tourId={id}
         ratingsAverage={tour.ratingsAverage}
         ratingsQuantity={tour.ratingsQuantity}
         reviews={tour.reviews}
         data={data}
-      /> */}
+      />
       <BookingForm user={data} tourPrice={tour.price} tourId={tour._id} />
       <Footer />
     </motion.div>

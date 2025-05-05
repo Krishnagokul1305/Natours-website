@@ -2,7 +2,6 @@ import { useRouteError } from "react-router-dom";
 
 function ErrorElement() {
   let error = useRouteError();
-  console.log(error.message)
   if (error.message.includes("loader")) error = "failed to fetch the data";
   return (
     <div className="flex items-center justify-center h-screen flex-col gap-5">

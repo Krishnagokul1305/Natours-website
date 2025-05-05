@@ -1,5 +1,7 @@
 // import { dQuotes, defaultuser } from "../../../assets/index";
 
+import { USER_IMG } from "../../../../config";
+
 function TourReviewsCard({ review }) {
   return (
     <div className=" bg-white h-full px-8 py-6 space-y-5 rounded-lg shadow-md">
@@ -27,9 +29,12 @@ function TourReviewsCard({ review }) {
       {/* User Info */}
       <div className="flex items-center space-x-3 mt-4">
         <div className="w-[50px] h-[50px] rounded-full overflow-hidden bg-gray-200">
-          {review.user.photo ? (
+          {review.user.photo != "default.jpg" ? (
             <img
-              src={"https://wac-cdn.atlassian.com/dam/jcr:ba03a215-2f45-40f5-8540-b2015223c918/Max-R_Headshot%20(1).jpg?cdnVersion=2511"}
+              src={
+                `${USER_IMG}/${review.user.photo}` ||
+                "https://wac-cdn.atlassian.com/dam/jcr:ba03a215-2f45-40f5-8540-b2015223c918/Max-R_Headshot%20(1).jpg?cdnVersion=2511"
+              }
               alt={review.user.name}
               className="w-full h-full object-cover"
             />
@@ -51,7 +56,7 @@ function TourReviewsCard({ review }) {
             </svg>
           )}
         </div>
-        <div >
+        <div>
           <h1 className="text-gray-900 text-sm font-semibold">
             {review.user.name}
           </h1>

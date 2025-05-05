@@ -31,6 +31,7 @@ const ProtectedRoute = lazy(() =>
 
 import Loader from "./components/Loader";
 import ErrorElement from "./components/ErrorElement";
+import UserReviews from "./Features/Auth/components/UserReviews";
 
 const queryClient = new QueryClient();
 
@@ -84,6 +85,14 @@ const router = createBrowserRouter([
             element: (
               <Suspense fallback={<Loader />}>
                 <UserDetails />
+              </Suspense>
+            ),
+          },
+          {
+            path: "reviews",
+            element: (
+              <Suspense fallback={<Loader />}>
+                <UserReviews />
               </Suspense>
             ),
           },

@@ -11,7 +11,7 @@ const TourRoute = require('./routes/tour.route');
 const userRoute = require('./routes/user.route');
 const reviewRoute = require('./routes/review.route');
 const bookingsRoute = require('./routes/Bookings.route');
-const paymentRoutes = require('./routes/Payment.route');
+// const paymentRoutes = require('./routes/Payment.route');
 const testRoute = require('./routes/Testing.route');
 
 const AppErrors = require('./utils/AppError');
@@ -36,7 +36,7 @@ app.options(
   })
 );
 
-app.set('trust proxy', 1);
+// app.set('trust proxy', 1);
 
 app.use(bodyParser.json());
 
@@ -52,7 +52,7 @@ if (process.env.NODE_ENV == 'development') {
 app.use('/api/v1/public', express.static(path.join(__dirname, 'public')));
 
 // middleware to setup security headers
-app.use(helmet());
+// app.use(helmet());
 
 // middleware to limit of request per hour
 // const limiter = rateLimiter({
@@ -63,10 +63,10 @@ app.use(helmet());
 // app.use(limiter);
 
 // middleware to handle noSQL injection
-app.use(sanitizer());
+// app.use(sanitizer());
 
 // middleware to handle html elements to enter into db
-app.use(xxs());
+// app.use(xxs());
 
 app.use('/api/v1/tours', TourRoute);
 
@@ -76,7 +76,7 @@ app.use('/api/v1/reviews', reviewRoute);
 
 app.use('/api/v1/bookings', bookingsRoute);
 
-app.use('/api/v1/payment', paymentRoutes);
+// app.use('/api/v1/payment', paymentRoutes);
 
 app.use('/api/v1/test', testRoute);
 
