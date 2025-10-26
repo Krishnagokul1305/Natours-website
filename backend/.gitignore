@@ -1,5 +1,6 @@
 # Ignore node_modules directory
 node_modules/
+config.env
 
 # Other possible entries to ignore
 .DS_Store
